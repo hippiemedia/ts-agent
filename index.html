@@ -13,7 +13,7 @@
         <script src="config.js"></script>
         <script>
             System.import('lib/main').then(function(hippie) {
-                window.router = hippie.factory(function(client) {
+                window.agent = hippie.factory(function(client) {
                     return function(method, url, params, headers) {
                         if (-1 === url.indexOf('localhost')) {
                             url = 'https://unicorn-cors-proxy.herokuapp.com/'+url;
