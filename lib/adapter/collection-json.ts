@@ -1,12 +1,9 @@
 
-export class CollectionJson
+import Adapter from '../adapter';
+export default class CollectionJson implements Adapter
 {
-    constructor(agent) {
-        this.agent = agent;
-    }
-
     supports(contentType) {
-        return contentType.indexOf('application/vnd.collection+json') === 0;
+        return contentType.includes('application/vnd.collection+json');
     }
 
     accepts() {

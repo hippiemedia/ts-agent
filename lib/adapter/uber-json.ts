@@ -1,16 +1,13 @@
 
-export class AlpsJson
+import Adapter from '../adapter';
+export default class UberJson implements Adapter
 {
-    constructor(agent) {
-        this.agent = agent;
-    }
-
     supports(contentType) {
-        return contentType.indexOf('application/vnd.uber-amundsen+json') === 0;
+        return contentType.includes('application/vnd.uber-amundsen+json');
     }
 
     accepts() {
-        return 'application/vnd.uber-amundsen+json, */*; q=0.01';
+        return 'application/vnd.uber-amundsen+json';
     }
 
     build(builder, text) {
@@ -30,8 +27,8 @@ export class AlpsJson
             }
             if (data.templated) {
                 builder.queries({
-                    rel: query.name,
-                    url: query.url
+                    rel: data.name,
+                    url: data.url
                 });
             }
             if (data.action) {
@@ -46,7 +43,7 @@ export class AlpsJson
         });
     }
 
-    function method(action) {
+    method(action) {
         const map = {
             'append': 'POST',
             'partial': 'PATCH',
@@ -54,7 +51,7 @@ export class AlpsJson
             'remove': 'DELETE',
             'replace': 'PUT'
         };
-        return map.action || action;
+        return map[action] || action;
     }
 }
 

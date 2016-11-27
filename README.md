@@ -4,21 +4,25 @@
 ## TL;DR
 
 ``` js
-import {factory} from 'hippiemedia/agent';
+import factory from 'hippiemedia/agent';
 
 agent = factory();
-agent.follow('http://some-hypermedia-api.com/')
-.then(res => {
-    console.log(res.operations());
-    console.log(res.links());
-    console.log(res.items());
-    console.log(res.queries());
-});
+agent
+    .follow('https://cors-anywhere.herokuapp.com/http://haltalk.herokuapp.com/')
+    .then(console.log.bind(console))
+;
 ```
 
 ## What ?
 
 An hypermedia agent capable of discovering and navigating a web of http resources.
+
+## How ?
+
+    yarn
+    yarn run serve
+    xdg-open localhost:3000/index.html
+
 
 ## Why ?
 
