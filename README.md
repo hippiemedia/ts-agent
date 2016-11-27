@@ -86,7 +86,7 @@ Collections are often queryable or filterable. Might be able to use URI-template
 agent.follow('http://some-hypermedia-api.com/resource1')
 .then(res => {
     console.log(res.queries());
-    return res.query('search').with({
+    return res.query('search').by({
         author: 'me',
         since: 'yesterday'
     })

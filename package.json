@@ -8,7 +8,9 @@
       "core-js": "npm:core-js@^0.9.4",
       "h5.linkformat": "npm:h5.linkformat@^0.0.0",
       "lodash": "npm:lodash@^3.10.0",
-      "uri-templates": "npm:uri-templates@^0.1.7"
+      "resolve-url": "npm:resolve-url@^0.2.1",
+      "uri-templates": "npm:uri-templates@^0.1.7",
+      "url": "npm:url@^0.11.0"
     },
     "devDependencies": {
       "babel": "npm:babel-core@^5.1.13",
