@@ -1,6 +1,5 @@
 
 import Resource from '../resource';
-import Adapter from '../adapter';
 import Agent from '../agent';
 import Operation from './operation';
 import Link from './link';
@@ -11,7 +10,6 @@ import {resolve} from 'url';
 export default class Builder
 {
     private agent: Agent;
-    private adapter: Adapter;
     private _url: string;
     private _data;
     private _links: any[] = [];
@@ -20,9 +18,8 @@ export default class Builder
     private _queries: any[] = [];
     private _profiles: any[] = [];
 
-    constructor(agent: Agent, adapter: Adapter) {
+    constructor(agent: Agent) {
         this.agent = agent;
-        this.adapter = adapter;
     }
 
     resolveUrl(path) {
@@ -71,13 +68,7 @@ export default class Builder
             this._links.map(link => {
                 return new Link(this.agent, link.rel, this.resolveUrl(link.url));
             }),
-            this._items.map(item => {
-                var builder = new Builder(this.agent, this.adapter);
-                builder.url(this.resolveUrl(item.url));
-                this.adapter.fromObject(builder, item);
-
-                return builder.build();
-            }),
+            this._items,
             this._operations.map(operation => {
                 return new Operation(this.agent, operation.rel, operation.method, this.resolveUrl(operation.url), operation.data);
             }),
@@ -86,5 +77,9 @@ export default class Builder
             }),
             this._profiles
         );
+    }
+
+    sub(): Builder {
+        return new Builder(this.agent);
     }
 }

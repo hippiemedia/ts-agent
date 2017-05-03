@@ -15,8 +15,11 @@ export default class HalJson implements Adapter
     }
 
     fromObject(builder, content) {
+        console.log(content);
         [].concat.apply([], Object.keys(content._embedded || []).forEach(key => {
-            builder.items(content._embedded[key]);
+            let subBuilder = builder.sub();
+            this.fromObject(subBuilder, content._embedded[key]);
+            builder.items(subBuilder.build());
         }));
         var links = content._links || {};
         var curies = links.curies || [];
