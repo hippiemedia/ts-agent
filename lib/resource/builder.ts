@@ -18,17 +18,13 @@ export default class Builder
     private _queries: any[] = [];
     private _profiles: any[] = [];
 
-    constructor(agent: Agent) {
+    constructor(agent: Agent, url: string) {
         this.agent = agent;
-    }
-
-    resolveUrl(path) {
-        return resolve(this._url, path);
-    }
-
-    url(url) {
         this._url = url;
-        return this;
+    }
+
+    resolveUrl(path: string) {
+        return resolve(this._url, path);
     }
 
     data(data) {
@@ -80,6 +76,6 @@ export default class Builder
     }
 
     sub(): Builder {
-        return new Builder(this.agent);
+        return new Builder(this.agent, this._url);
     }
 }

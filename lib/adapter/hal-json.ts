@@ -1,5 +1,6 @@
 
 import Adapter from '../adapter';
+
 export default class HalJson implements Adapter
 {
     supports(contentType) {
@@ -15,7 +16,6 @@ export default class HalJson implements Adapter
     }
 
     fromObject(builder, content) {
-        console.log(content);
         [].concat.apply([], Object.keys(content._embedded || []).forEach(key => {
             let subBuilder = builder.sub();
             this.fromObject(subBuilder, content._embedded[key]);

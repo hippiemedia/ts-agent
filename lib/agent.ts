@@ -42,8 +42,7 @@ export default class Agent
     build(response: Response): Resource {
         var type = response.xhr.getResponseHeader('Content-Type') || '';
         var adapter = this.getAdapter(type);
-        var builder = new Builder(this);
-        builder.url(response.url);
+        var builder = new Builder(this, response.url);
 
         if (-1 !== response.xhr.getAllResponseHeaders().indexOf('Link')) {
             var link = response.xhr.getResponseHeader('Link') || '';

@@ -1,4 +1,4 @@
 
 import factory from './factory';
 
-window.agent = factory();
+window['agent'] = factory();

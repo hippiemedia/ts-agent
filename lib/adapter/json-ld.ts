@@ -1,5 +1,6 @@
 
 import Adapter from '../adapter';
+
 export default class JsonLd implements Adapter
 {
     supports(contentType) {

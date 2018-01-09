@@ -1,5 +1,6 @@
 {
   "scripts": {
+    "test": "jest",
     "server": "webpack-dev-server --progress --colors --port 3000",
     "build": "webpack -p --progress --colors"
   },
@@ -9,12 +10,16 @@
     "url": "^0.11.0"
   },
   "devDependencies": {
-    "@types/es6-shim": "^0.31.33",
+    "@types/jest": "^22.0.1",
     "@types/lodash": "^4.14.63",
+    "jest": "^22.0.5",
     "source-map-loader": "^0.2.1",
     "ts-loader": "^2.0.3",
     "typescript": "^2.3.2",
     "webpack": "^2.4.1",
     "webpack-dev-server": "^2.4.5"
+  },
+  "jest": {
+    "testMatch": ["built/test/**/*.js"]
   }
 }
