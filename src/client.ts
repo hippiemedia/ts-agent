@@ -2,18 +2,29 @@
 import * as _ from 'lodash';
 import Response from './client/response';
 
-export default function client(method, url, params, headers): Promise<Response> {
+export interface Client { (method, url, params, headers): Promise<Response> };
+
+export async function fetchApi(method, url, params, headers): Promise<Response> {
+    return fetch(url, {
+        method: method,
+        headers: headers,
+        body: JSON.stringify(params),
+    }).then(async function(response) {
+        return {
+            contentType: await response.headers.get('content-type'),
+            getHeader: response.headers.get.bind(response),
+            body: await response.text(),
+        };
+    });
+}
+
+export function xhr(method, url, params, headers): Promise<Response> {
     return new Promise((resolve, reject) => {
         var xhr = new XMLHttpRequest();
         xhr.open(method, url, true);
-        //xhr.open(method, 'https://cors-anywhere.herokuapp.com/'+url, true);
         params = Object.keys(params || {}).map(function(key){
           return encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
         }).join('&');
-
-        headers = _.merge({}, {
-            'X-Requested-With': 'hippiemedia'
-        }, headers || {});
 
         if (-1 !== ['post', 'put', 'patch'].indexOf(method.toLowerCase())) {
             headers = _.merge({}, {

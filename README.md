@@ -76,7 +76,7 @@ You can follow links as you follow links in your browser.
 agent.follow('http://some-hypermedia-api.com/resource1')
 .then(res => {
     console.log(res.links());
-    return res.link('comments').follow();
+    return res.link('comments').followAll();
 })
 ```
 

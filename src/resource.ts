@@ -1,6 +1,6 @@
 
 import Operation from './resource/operation';
-import Link from './resource/link';
+import {Link} from './resource/link';
 import Query from './resource/query';
 import * as _ from 'lodash';
 

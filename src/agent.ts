@@ -2,6 +2,7 @@
 import Resource from './resource';
 import Adapter from './adapter';
 import Response from './client/response';
+import {Client} from './client';
 
 export default class Agent
 {
