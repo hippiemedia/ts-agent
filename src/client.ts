@@ -2,7 +2,7 @@
 import * as _ from 'lodash';
 import Response from './client/response';
 
-export default function client(method, url, params, headers) {
+export default function client(method, url, params, headers): Promise<Response> {
     return new Promise((resolve, reject) => {
         var xhr = new XMLHttpRequest();
         xhr.open(method, url, true);
@@ -27,7 +27,11 @@ export default function client(method, url, params, headers) {
         });
         xhr.onload = () => {
             if (xhr.status >= 200 && xhr.status < 400) {
-                resolve({url: url, xhr: xhr, requestHeaders: headers});
+                resolve({
+                    contentType: xhr.getResponseHeader('content-type'),
+                    getHeader: xhr.getResponseHeader.bind(xhr),
+                    body: xhr.responseText,
+                });
             } else {
                 reject(xhr);
             }

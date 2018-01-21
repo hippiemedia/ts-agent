@@ -1,5 +1,5 @@
 
-import Agent from '../lib/agent';
+import Agent from '../src/agent';
 
 test('can be instantiated', function() {
     new Agent([], function() {});
