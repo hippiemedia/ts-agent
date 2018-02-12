@@ -21,7 +21,13 @@ export default class Agent
     async call(method, url, params, headers = {}): Promise<Resource> {
         let response = await this.client(method, url, params, headers);
 
-        return this.build(url, response);
+        return this.build(url, response.getHeader('content-type') || '', response.body);
+    }
+
+    build(url, contentType, body) {
+        let adapter = this.getAdapter(contentType);
+
+        return adapter.build(this, url, this.accept(contentType), contentType, body);
     }
 
     private getAdapter(type): Adapter {
@@ -34,12 +40,5 @@ export default class Agent
         return this.adapters.map(adapter =>  {
             return adapter.accepts() + (adapter.supports(contentType) ? ';q=1' : ';q=0.8');
         }).join(',');
-    }
-
-    private build(url, response: Response) {
-        let contentType = response.getHeader('content-type');
-        let adapter = this.getAdapter(contentType);
-
-        return adapter.build(this, url, this.accept(contentType), response);
     }
 }

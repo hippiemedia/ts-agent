@@ -20,6 +20,11 @@ module.exports = {
             'Access-Control-Allow-Headers': '*',
             'Access-Control-Allow-Methods': '*',
         },
+        before(app){
+            app.post('/api/*', function(req, res, next) {
+                res.set('Content-Type', 'application/hal+json').status(201).end('{}');
+            });
+        },
         staticOptions: {
             setHeaders: (res, file, stat) => {
                 if (path.basename(path.dirname(file)) == 'hal') {

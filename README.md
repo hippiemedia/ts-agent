@@ -44,8 +44,9 @@ Yet this very same browser is capable of displaying it and any other website. No
 Just create an agent. It's like your browser, but it understands more hypermedia formats: 
 
  - html
- - ld+json
+ - ld+json (+hydra)
  - hal+json
+ - hal-forms
  - vnd.api+json
  - collection+json
  - uber+json

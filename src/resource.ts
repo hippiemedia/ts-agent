@@ -1,6 +1,6 @@
 
 import Operation from './resource/operation';
-import {Link} from './resource/link';
+import Link from './resource/link';
 import Query from './resource/query';
 import * as _ from 'lodash';
 
@@ -22,19 +22,37 @@ export default class Resource
         this.queries = queries;
     }
 
-    link(rel) {
+    follow(rel)
+    {
+        return this.link(rel).follow();
+    }
+
+    followAll(rel)
+    {
+        return this.link(rel).followAll();
+    }
+
+    operate(rel)
+    {
+        return this.link(rel).follow().then(r => r.operation('default'));
+    }
+
+    link(rel)
+    {
         return _.find(this.links, _.matchesProperty('rel', rel))
             || (() => { throw Error(rel); })()
         ;
     }
 
-    query(rel) {
+    query(rel)
+    {
         return _.find(this.queries, _.matchesProperty('rel', rel))
             || (() => { throw Error(rel); })()
         ;
     }
 
-    operation(rel) {
+    operation(rel)
+    {
         return _.find(this.operations, _.matchesProperty('rel', rel))
             || (() => { throw Error(rel); })()
         ;

@@ -14,9 +14,9 @@ const response = {
 };
 
 test('populates resource', async function() {
-    response.body = fs.readFileSync('test/format/hal.json');
+    response.body = fs.readFileSync('test/format/hal/example.json');
 
-    let resource = await adapter.build(agent, 'http://example.com', 'application/hal+json', response);
+    let resource = await adapter.build(agent, 'http://example.com', 'application/hal+json', response.contentType, response.body);
 
     expect(resource.links).toHaveLength(4);
     expect(resource.link('self').url).toEqual('http://example.com/orders');
@@ -25,7 +25,7 @@ test('populates resource', async function() {
 test('uses embedded', async function() {
     response.body = fs.readFileSync('test/format/hal/collection.json');
 
-    let resource = await adapter.build(agent, 'http://example.com', 'application/hal+json', response);
+    let resource = await adapter.build(agent, 'http://example.com', 'application/hal+json', response.contentType, response.body);
 
     expect(resource.link('item').follow()).toHaveLength(34);
 });

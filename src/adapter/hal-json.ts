@@ -1,7 +1,7 @@
 
 import Adapter from '../adapter';
 import Resource from '../resource';
-import {Resolved, Unresolved, Link} from '../resource/link';
+import Link from '../resource/link';
 import Query from '../resource/query';
 import Response from '../client/response';
 import {resolve} from 'url';
@@ -18,17 +18,16 @@ export default class HalJson implements Adapter
         return 'application/hal+json';
     }
 
-    build(agent, url: string, accept: string, response: Response)
+    build(agent, url: string, accept: string, contentType, body)
     {
-        return this.fromObject(agent, url, accept, response.contentType, JSON.parse(response.body));
-    }
+        if (typeof body === 'string') {
+            body = JSON.parse(body);
+        }
 
-    private fromObject(agent, url, accept, contentType, content)
-    {
         return new Resource(
             url,
             contentType,
-            this.normalizeLinks(agent, url, accept, content, contentType),
+            this.normalizeLinks(agent, url, accept, body, contentType),
         );
     }
 
@@ -37,40 +36,41 @@ export default class HalJson implements Adapter
             return  [];
         }
 
-        return Object.keys(content._links)
+        return Object.keys(content._links || {})
             .filter(rel => !content._links[rel].templated)
             .map(rel => {
-                let links = content._links[rel];
-                if (typeof links === 'string') {
-                    links = [{href: links}];
+                let links = this.normalizeLink(content, rel);
+                let resolved = new Map();
+
+                let embedded = ((content._embedded || {})[rel] || []);
+                if (!Array.isArray(embedded)) {
+                    embedded = [embedded];
                 }
 
-                if (!Array.isArray(links)) {
-                    links = [links];
-                }
+                embedded.forEach(item => {
+                    let itemLinks = this.normalizeLink(item, 'self');
+                    if (itemLinks[0]) {
+                        resolved.set(itemLinks[0].href, agent.build(itemLinks[0].href, links[0].type || contentType, item))
+                    }
+                });
 
-                if (content._embedded && content._embedded[rel]) {
-                    return new Resolved(
-                        rel,
-                        links.map((link, index) =>
-                            this.fromObject(
-                                agent,
-                                resolve(url, link.href),
-                                accept,
-                                contentType,
-                                content._embedded[rel][index]
-                            )
-                        )
-                    );
-                }
-                return new Unresolved(
-                    agent,
-                    rel,
-                    links.map(link => resolve(url, link.href)),
-                    accept
-                );
-            })
+                return new Link(rel, agent, accept, links.map(link => link.href), resolved);
+            });
         ;
+    }
+
+    private normalizeLink(content, rel)
+    {
+        let links = (content._links || {})[rel] || [];
+        if (typeof links === 'string') {
+            links = [{href: links}];
+        }
+
+        if (!Array.isArray(links)) {
+            links = [links];
+        }
+
+        return links;
     }
 }
 

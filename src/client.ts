@@ -29,8 +29,8 @@ export function xhr(method, url, params, headers): Promise<Response> {
         if (-1 !== ['post', 'put', 'patch'].indexOf(method.toLowerCase())) {
             headers = _.merge({}, {
                 'Content-type': 'application/x-www-form-urlencoded',
-                'Content-length': params.length,
-                'Connection': 'close'
+                //'Content-length': params.length,
+                //'Connection': 'close'
             }, headers);
         }
         Object.keys(headers || {}).forEach(header => {

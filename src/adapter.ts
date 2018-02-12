@@ -1,5 +1,4 @@
 
-import Response from './client/response';
 import Resource from './resource';
 import Agent from './agent';
 
@@ -9,5 +8,5 @@ export default interface Adapter
 
     accepts(): string;
 
-    build(agent: Agent, url: string, accept: string, response: Response);
+    build(agent: Agent, url: string, accept: string, contentType: string, body: string);
 }
