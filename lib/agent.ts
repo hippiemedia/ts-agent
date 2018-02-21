@@ -1,44 +1,48 @@
 
-import core from 'core-js';
 import linkFormat from 'h5.linkformat';
-import {Builder} from './resource/builder';
+import Builder from './resource/builder';
+import Resource from './resource';
+import Adapter from './adapter';
+import Response from './client/response';
 
-export class Agent
+export default class Agent
 {
-    constructor(adapters, client) {
-        this.adapters = adapters.map(adapter => {
-            adapter.agent = this;
-            return adapter;
-        });
+    private adapters: Adapter[];
+    private client: Function;
+
+    constructor(adapters: Adapter[], client: Function) {
+        this.adapters = adapters;
         this.client = client;
     }
 
-    follow(url, params, headers) {
-        return this._call('get', url, params, headers);
+    follow(url, params = {}, headers = {}) {
+        return this.call('get', url, params, headers);
     }
 
-    operate(method, url, params, headers) {
-        return this._call(method, url, params, headers);
+    meaningOf(rel, params = {}, headers = {}) {
+        return this.call('get', rel, params, headers);
     }
 
-    _call(method, url, params, headers) {
+    operate(method, url, params = {}, headers = {}) {
+        return this.call(method, url, params, headers);
+    }
+
+    call(method, url, params, headers): Promise<Resource> {
         return this.client(method, url, params, headers)
             .then(this.build.bind(this))
-            .catch(console.error.bind(console))
         ;
     }
 
-    getAdapter(type) {
+    getAdapter(type): Adapter {
         return this.adapters.find(adapter => {
             return adapter.supports(type);
         }) || (() => { throw Error(type); })();
     }
 
-    build(response) {
+    build(response: Response): Resource {
         var type = response.xhr.getResponseHeader('Content-Type') || '';
         var adapter = this.getAdapter(type);
-        var builder = new Builder(this, adapter);
-        builder.url(response.url);
+        var builder = new Builder(this, response.url);
 
         if (-1 !== response.xhr.getAllResponseHeaders().indexOf('Link')) {
             var link = response.xhr.getResponseHeader('Link') || '';

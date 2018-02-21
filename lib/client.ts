@@ -1,10 +1,12 @@
 
-import _ from 'lodash';
+import * as _ from 'lodash';
+import Response from './client/response';
 
-export function client(method, url, params, headers) {
+export default function client(method, url, params, headers) {
     return new Promise((resolve, reject) => {
-        var r = new XMLHttpRequest();
-        r.open(method, url, true);
+        var xhr = new XMLHttpRequest();
+        xhr.open(method, url, true);
+        //xhr.open(method, 'https://cors-anywhere.herokuapp.com/'+url, true);
         params = Object.keys(params || {}).map(function(key){
           return encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
         }).join('&');
@@ -21,18 +23,18 @@ export function client(method, url, params, headers) {
             }, headers);
         }
         Object.keys(headers || {}).forEach(header => {
-            r.setRequestHeader(header, headers[header]);
+            xhr.setRequestHeader(header, headers[header]);
         });
-        r.onload = function () {
-            if (this.status >= 200 && this.status < 400) {
-                resolve({url: url, xhr: this});
+        xhr.onload = () => {
+            if (xhr.status >= 200 && xhr.status < 400) {
+                resolve({url: url, xhr: xhr, requestHeaders: headers});
             } else {
-                reject(this);
+                reject(xhr);
             }
         };
-        r.onerror = function () {
+        xhr.onerror = () => {
           reject(this);
         };
-        r.send(params);
+        xhr.send(params);
     });
 };

@@ -1,16 +1,14 @@
 
-export class JsonLd
-{
-    constructor(agent) {
-        this.agent = agent;
-    }
+import Adapter from '../adapter';
 
+export default class JsonLd implements Adapter
+{
     supports(contentType) {
-        return contentType.indexOf('application/ld+json') === 0;
+        return contentType.includes('application/ld+json');
     }
 
     accepts() {
-        return 'application/ld+json, application/json, */*; q=0.01';
+        return 'application/ld+json';
     }
 
     build(builder, text) {

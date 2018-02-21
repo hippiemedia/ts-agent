@@ -4,21 +4,24 @@
 ## TL;DR
 
 ``` js
-import {factory} from 'hippiemedia/agent';
+import factory from 'hippiemedia/agent';
 
 agent = factory();
-agent.follow('http://some-hypermedia-api.com/')
-.then(res => {
-    console.log(res.operations());
-    console.log(res.links());
-    console.log(res.items());
-    console.log(res.queries());
-});
+agent
+    .follow('http://haltalk.herokuapp.com/')
+    .then(console.log.bind(console))
+;
 ```
 
 ## What ?
 
-An hypermedia agent capable of discovering and navigating a web of http resources.
+An hypermedia agent capable of discovering and navigating a web of linked resources.
+
+## How ?
+
+    npm install
+    npm run build
+
 
 ## Why ?
 
@@ -26,7 +29,6 @@ The current state of http APIs sucks. Everybody makes its own shit in its own co
 without embracing what made the web so successful (hateoas, links, auto-discovery, ...)
 
 [json-ld](http://json-ld.org/) + [hydra](http://www.hydra-cg.com/) is the future, yet everybody tries to replace poor REST with graphql,  
-thinking that SQL over http is better than flexible documents,  
 thinking that graphql replaces REST (while it's only complementary at best),  
 thinking that client-side-hardcoded-server-structure is better than auto-discovered, self-documented, smart[1] clients,  
 thinking that json is better that xml,  
@@ -86,7 +88,7 @@ Collections are often queryable or filterable. Might be able to use URI-template
 agent.follow('http://some-hypermedia-api.com/resource1')
 .then(res => {
     console.log(res.queries());
-    return res.query('search').with({
+    return res.query('search').by({
         author: 'me',
         since: 'yesterday'
     })
@@ -99,7 +101,7 @@ agent.follow('http://some-hypermedia-api.com/resource1')
 ### Items
 
 Last but not least, items are the actual content of your resource.  
-Each item is represented by its own `Resource` object, so you can operate on each embedded item as a spearate resource.
+Each item is represented by its own `Resource` object, so you can operate on each embedded item as a separate resource.
 
 ```js
 agent.follow('http://some-hypermedia-api.com/resource1')

@@ -1,16 +1,14 @@
 
-export class Html
+import Adapter from '../adapter';
+
+export default class Html implements Adapter
 {
-    constructor(agent) {
-        this.agent = agent;
+    accepts() {
+        return 'text/html';
     }
 
     supports(contentType) {
-        return contentType.indexOf('text/html') === 0;
-    }
-
-    accepts() {
-        return 'text/html';
+        return contentType.includes('text/html');
     }
 
     build(builder, text) {

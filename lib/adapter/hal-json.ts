@@ -1,20 +1,14 @@
 
-import {UriTemplate} from 'uri-templates';
+import Adapter from '../adapter';
 
-export class HalJson
+export default class HalJson implements Adapter
 {
-    constructor(agent) {
-        this.agent = agent;
-    }
-
     supports(contentType) {
-        return contentType.indexOf('application/hal+json') === 0
-            || contentType.indexOf('application/json') === 0
-        ;
+        return contentType.includes('application/hal+json') || contentType.includes('application/json');
     }
 
     accepts() {
-        return 'application/hal+json, application/json, */*; q=0.01';
+        return 'application/hal+json';
     }
 
     build(builder, text) {
@@ -23,7 +17,9 @@ export class HalJson
 
     fromObject(builder, content) {
         [].concat.apply([], Object.keys(content._embedded || []).forEach(key => {
-            builder.items(content._embedded[key]);
+            let subBuilder = builder.sub();
+            this.fromObject(subBuilder, content._embedded[key]);
+            builder.items(subBuilder.build());
         }));
         var links = content._links || {};
         var curies = links.curies || [];
