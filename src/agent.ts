@@ -9,7 +9,7 @@ export default class Agent
     private adapters: Adapter[];
     private client: Function;
 
-    constructor(adapters: Adapter[], client: Function) {
+    constructor(adapters: Adapter[], client: Client) {
         this.adapters = adapters;
         this.client = client;
     }

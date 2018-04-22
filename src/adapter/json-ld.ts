@@ -31,6 +31,7 @@ export default class JsonLd implements Adapter
 
         return new Resource(
             url,
+            content,
             contentType
         );
     }

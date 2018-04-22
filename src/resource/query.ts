@@ -9,9 +9,9 @@ export default class Query
     public readonly rel: string;
     public readonly url: string;
 
-    constructor(agent: Agent, rel, url, accept) {
-        this.agent = agent;
+    constructor(rel: string, agent: Agent, url, accept) {
         this.rel = rel;
+        this.agent = agent;
         this.url = url;
         this.accept = accept;
     }

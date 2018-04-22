@@ -4,7 +4,9 @@ import Resource from '../resource';
 
 type Field = {
     name: string,
-    type: string
+    type: string,
+    required: boolean,
+    value: string,
 };
 
 export default class Operation
@@ -13,14 +15,14 @@ export default class Operation
     private accept: string;
     public readonly rel: string;
     public readonly method: string;
-    public readonly url: string;
+    public readonly href: string;
     public fields: Field[];
 
-    constructor(agent: Agent, rel: string, method: string, url: string, accept: string, fields) {
+    constructor(agent: Agent, rel: string, method: string, href: string, accept: string, fields) {
         this.agent = agent;
         this.rel = rel;
         this.method = method;
-        this.url = url;
+        this.href = href;
         this.accept = accept;
         this.fields = fields;
     }
@@ -31,6 +33,6 @@ export default class Operation
     }
 
     submit(): Promise<Resource> {
-        return this.agent.call(this.method, this.url, this.fields, {Accept: this.accept});
+        return this.agent.call(this.method, this.href, this.fields, {Accept: this.accept});
     }
 }

@@ -21,7 +21,7 @@ module.exports = {
             'Access-Control-Allow-Methods': '*',
         },
         before(app){
-            app.post('/api/*', function(req, res, next) {
+            app.route('/api/*').all(function(req, res, next) {
                 res.set('Content-Type', 'application/hal+json').status(201).end('{}');
             });
         },

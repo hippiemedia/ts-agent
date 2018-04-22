@@ -114,8 +114,8 @@
                     "method" : "post",
                     "contentType" : "application/json",
                     "properties" : [
-                        {"name" : "when", "required" : true, "type": "datetime"},
-                        {"name" : "reason", "required" : false, "type": "string"}
+                        {"name" : "when", "required" : true, "type": "datetime", "value": "2018-04-22T16:45:25+02:00"},
+                        {"name" : "reason", "required" : false, "type": "string", "value": "because"}
                     ]
                 }
             }

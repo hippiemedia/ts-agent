@@ -1,60 +1,44 @@
 
 import Operation from './resource/operation';
 import Link from './resource/link';
-import Query from './resource/query';
-import * as _ from 'lodash';
 
 export default class Resource
 {
     public readonly contentType: string;
     public readonly url: string;
-    public readonly links: Link[];
-    public readonly items: Resource[];
+    public readonly allLinks: Link[];
     public readonly operations: Operation[];
-    public readonly queries: Query[];
+    public readonly state;
 
-    constructor(url: string, contentType: string, links: Link[] = [], items: Resource[] = [], operations: Operation[] = [], queries: Query[] = []) {
-        this.contentType = contentType;
+    constructor(url: string, state, contentType: string, links: Link[] = [], operations: Operation[] = []) {
         this.url = url;
-        this.links = links;
-        this.items = items;
+        this.state = state;
+        this.contentType = contentType;
+        this.allLinks = links;
         this.operations = operations;
-        this.queries = queries;
     }
 
-    follow(rel)
+    follow(rel, fields = {}, criteria = () => true): Promise<Resource>
     {
-        return this.link(rel).follow();
+        let link = this.links(rel).find(criteria);
+        if (link) {
+            return link.follow(fields);
+        }
+        return Promise.reject(new Error(`no such link relation "${rel}" in "${this.allLinks}"`));
     }
 
-    followAll(rel)
+    followAll(rel, fields = {}, criteria = () => true): Promise<Resource>[]
     {
-        return this.link(rel).followAll();
+        return this.links(rel).filter(criteria).map(link  => link.follow(fields));
     }
 
-    operate(rel)
+    links(rel)
     {
-        return this.link(rel).follow().then(r => r.operation('default'));
-    }
-
-    link(rel)
-    {
-        return _.find(this.links, _.matchesProperty('rel', rel))
-            || (() => { throw Error(rel); })()
-        ;
-    }
-
-    query(rel)
-    {
-        return _.find(this.queries, _.matchesProperty('rel', rel))
-            || (() => { throw Error(rel); })()
-        ;
+        return this.allLinks.filter(link => link.rel === rel);
     }
 
     operation(rel)
     {
-        return _.find(this.operations, _.matchesProperty('rel', rel))
-            || (() => { throw Error(rel); })()
-        ;
+        return this.operations.find(link => link.rel === rel);
     }
 }

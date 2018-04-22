@@ -1,5 +1,4 @@
 
-import * as _ from 'lodash';
 import Response from './client/response';
 
 export interface Client { (method, url, params, headers): Promise<Response> };
@@ -27,7 +26,7 @@ export function xhr(method, url, params, headers): Promise<Response> {
         }).join('&');
 
         if (-1 !== ['post', 'put', 'patch'].indexOf(method.toLowerCase())) {
-            headers = _.merge({}, {
+            headers = Object.assign({}, {
                 'Content-type': 'application/x-www-form-urlencoded',
                 //'Content-length': params.length,
                 //'Connection': 'close'

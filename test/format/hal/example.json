@@ -7,13 +7,16 @@
             "href": "/orders{?id}",
             "templated": true
         },
-        "ea:admin": [{
-            "href": "/admins/2",
-            "title": "Fred"
-        }, {
-        "href": "/admins/5",
-        "title": "Kate"
-        }]
+        "ea:admin": [
+            {
+                "href": "/admins/2",
+                "title": "Fred"
+            },
+            {
+                "href": "/admins/5",
+                "title": "Kate"
+            }
+        ]
     },
     "currentlyProcessing": 14,
     "shippedToday": 20,

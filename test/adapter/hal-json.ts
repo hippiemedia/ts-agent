@@ -1,31 +1,39 @@
 
 import HalJson from '../../src/adapter/hal-json';
-import Resource from '../../src/resource';
+import HalForms from '../../src/adapter/hal-forms';
 import Agent from '../../src/agent';
 
 const fs = require('fs');
 
 const adapter = new HalJson();
-const agent = new Agent([adapter], function() {});
-const response = {
-    getHeader: function() {},
-    contentType: 'application/hal+json',
-    body: ''
-};
-
-test('populates resource', async function() {
-    response.body = fs.readFileSync('test/format/hal/example.json');
-
-    let resource = await adapter.build(agent, 'http://example.com', 'application/hal+json', response.contentType, response.body);
-
-    expect(resource.links).toHaveLength(4);
-    expect(resource.link('self').url).toEqual('http://example.com/orders');
+const agent = new Agent([adapter, new HalForms], (method, url, params, headers) => {
+    return Promise.resolve({
+        getHeader: () => 'application/hal+json',
+        contentType: 'application/hal+json',
+        body: '{}'
+    });
 });
 
-test('uses embedded', async function() {
-    response.body = fs.readFileSync('test/format/hal/collection.json');
+test('populates links', async () => {
+    let resource = await adapter.build(agent, 'http://example.com', 'application/hal+json', 'application/hal+json', fs.readFileSync('test/format/hal/example.json').toString());
 
-    let resource = await adapter.build(agent, 'http://example.com', 'application/hal+json', response.contentType, response.body);
+    expect(resource.allLinks).toHaveLength(6);
 
-    expect(resource.link('item').follow()).toHaveLength(34);
+    let found = await resource.follow('ea:find', {id: 'test'});
+    expect(found.url).toBe('/orders?id=test');
+});
+
+test('uses embedded', async () => {
+    let resource = await adapter.build(agent, 'http://example.com', 'application/hal+json', 'application/hal+json', fs.readFileSync('test/format/hal/collection.json').toString());
+
+    expect(resource.followAll('item')).toHaveLength(30);
+});
+
+test('populates operations', async () => {
+    let resource = await adapter.build(agent, 'http://example.com', 'application/hal+json', 'application/hal+json', fs.readFileSync('test/format/hal/collection.json').toString());
+
+    let op = await resource.follow('activate').then(r => r.operation('default'));
+    expect(op.fields).toHaveLength(2);
+    expect(op.fields[0]).toEqual({name: 'when', required : true, type: 'datetime'});
+    expect(op.fields[1]).toEqual({name: 'reason', required : false, type: 'string'});
 });
