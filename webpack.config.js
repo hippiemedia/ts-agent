@@ -1,6 +1,6 @@
 const path = require('path');
 
-module.exports = {
+const config = {
     entry: './src/main.ts',
     output: {
         filename: './dist/bundle.js',
@@ -34,3 +34,14 @@ module.exports = {
         }
     },
 };
+
+if (process.env.EXPORT_LIBRARY) {
+    config.output = {
+        filename: './dist/bundle.js',
+        library: 'hippiemedia-agent',
+        libraryTarget: 'umd',
+        umdNamedDefine: true
+    }
+}
+
+module.exports = config;
