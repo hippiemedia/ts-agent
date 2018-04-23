@@ -3,7 +3,8 @@ const path = require('path');
 const config = {
     entry: './src/main.ts',
     output: {
-        filename: './dist/bundle.js',
+        path: path.resolve(__dirname, './dist'),
+        filename: 'bundle.js',
     },
     resolve: {
         extensions: ['.js', '.ts']
@@ -37,7 +38,8 @@ const config = {
 
 if (process.env.EXPORT_LIBRARY) {
     config.output = {
-        filename: './dist/bundle.js',
+        path: path.resolve(__dirname, './dist'),
+        filename: 'bundle.js',
         library: 'hippiemedia-agent',
         libraryTarget: 'umd',
         umdNamedDefine: true
