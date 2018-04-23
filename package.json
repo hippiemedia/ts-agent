@@ -1,4 +1,7 @@
 {
+  "name": "hippiemedia-agent",
+  "version": "1.0.0",
+  "repository": "https://github.com/hippiemedia/agent",
   "scripts": {
     "test": "jest build/test/**/*.js",
     "server": "webpack-dev-server --progress --colors --port 3000",
