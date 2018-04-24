@@ -34,6 +34,6 @@ test('populates operations', async () => {
 
     let op = await resource.follow('activate').then(r => r.operation('default'));
     expect(op.fields).toHaveLength(2);
-    expect(op.fields[0]).toEqual({name: 'when', required : true, type: 'datetime'});
-    expect(op.fields[1]).toEqual({name: 'reason', required : false, type: 'string'});
+    expect(op.fields[0]).toEqual({name: 'when', required : true, type: 'datetime', value: '2018-04-22T16:45:25+02:00'});
+    expect(op.fields[1]).toEqual({name: 'reason', required : false, type: 'string', value: 'because'});
 });

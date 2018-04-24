@@ -9,6 +9,7 @@
     "server": "webpack-dev-server --progress --colors --port 3000",
     "build": "webpack -p --progress --colors",
     "watch": "tsc -w",
+    "compile": "tsc",
     "install": "EXPORT_LIBRARY=true npm run build"
   },
   "dependencies": {
