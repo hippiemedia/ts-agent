@@ -10,7 +10,7 @@ module.exports = {
     },
     module: {
         rules: [
-            { test: /\.ts$/, loader: 'ts-loader' }
+            { test: /\.ts$/, use: 'ts-loader' }
         ],
     },
     devtool: 'source-map',
