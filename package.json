@@ -1,9 +1,15 @@
 {
+  "name": "hippiemedia-agent",
+  "version": "1.0.0",
+  "repository": "https://github.com/hippiemedia/agent",
+  "main": "dist/bundle.js",
+  "types": "src/main.ts",
   "scripts": {
     "test": "jest build/test/**/*.js",
     "server": "webpack-dev-server --progress --colors --port 3000",
     "build": "webpack -p --progress --colors",
-    "watch": "tsc -w"
+    "watch": "tsc -w",
+    "install": "EXPORT_LIBRARY=true npm run build"
   },
   "dependencies": {
     "h5.linkformat": "^0.0.0",

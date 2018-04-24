@@ -1,4 +1,7 @@
-
 import factory from './factory';
 
-window['agent'] = factory();
+const agent = factory();
+
+window['agent'] = agent;
+
+export default factory;
