@@ -3,6 +3,7 @@
     "test": "jest build/test/**/*.js",
     "server": "webpack-dev-server --progress --colors --port 3000",
     "build": "webpack -p --progress --colors",
+    "compile": "tsc",
     "watch": "tsc -w"
   },
   "dependencies": {
