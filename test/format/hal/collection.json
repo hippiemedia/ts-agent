@@ -1,0 +1,368 @@
+{
+    "_links": {
+        "self": "/api/tests?page=1",
+        "first": "/api/tests?page=1",
+        "last": "/api/tests?page=3334",
+        "next": "/api/tests?page=2",
+        "activate": {
+            "href" : "/api/activate",
+            "type": "application/prs.hal-forms+json"
+        },
+        "item": [
+            {
+                "href": "/api/tests/000023cf-8035-4c13-a4ba-548d0100cac9"
+            },
+            {
+                "href": "/api/tests/000187b1-e264-4b8e-966f-788a062ef85c"
+            },
+            {
+                "href": "/api/tests/0001a2be-99af-42d5-927b-d1ffbdf3f3f3"
+            },
+            {
+                "href": "/api/tests/0001b481-1826-45a0-9d6b-0d482e3cafb4"
+            },
+            {
+                "href": "/api/tests/0001fc20-e128-4828-9a35-92a352cf15e1"
+            },
+            {
+                "href": "/api/tests/00020961-c891-4e3a-9e26-4478a7b9ad75"
+            },
+            {
+                "href": "/api/tests/00024b9a-4fac-4c43-add6-115bf3e0ac34"
+            },
+            {
+                "href": "/api/tests/00028654-95d5-4878-89c8-f46ca4f84b1e"
+            },
+            {
+                "href": "/api/tests/0002d92f-f3e5-4231-bfe2-16287c8c6c0a"
+            },
+            {
+                "href": "/api/tests/00032747-294f-4b5d-80d8-f09c1c482633"
+            },
+            {
+                "href": "/api/tests/0003691b-caa3-4768-b1a7-89dceeae76ee"
+            },
+            {
+                "href": "/api/tests/0003db98-8463-4690-a836-a4c9735193e5"
+            },
+            {
+                "href": "/api/tests/00046dd0-7246-4893-ab84-7a8977109f4a"
+            },
+            {
+                "href": "/api/tests/0004dd81-a6cc-453d-8d57-eaf473851c01"
+            },
+            {
+                "href": "/api/tests/000531e4-7144-4300-95df-3e5fc001f5fc"
+            },
+            {
+                "href": "/api/tests/0005a72c-e7d9-4d39-9ea9-c12c7eca1bd3"
+            },
+            {
+                "href": "/api/tests/00061484-f431-47f2-a94e-b34aa68835e7"
+            },
+            {
+                "href": "/api/tests/0006be52-150a-4732-a352-632e68d48243"
+            },
+            {
+                "href": "/api/tests/00070ea7-13f3-4637-be75-681eb6eac2fb"
+            },
+            {
+                "href": "/api/tests/0009d2f1-38ea-4f73-bd1b-ba85075e4756"
+            },
+            {
+                "href": "/api/tests/000aa3ff-222b-4901-9ac0-7cd666783c99"
+            },
+            {
+                "href": "/api/tests/000b2dd1-855b-4e2b-a77b-0520363939da"
+            },
+            {
+                "href": "/api/tests/000b922e-9f87-46ef-ac28-5fcb4d2db59d"
+            },
+            {
+                "href": "/api/tests/000cf644-c839-4a22-b3a9-8db4a36eeccd"
+            },
+            {
+                "href": "/api/tests/000d468c-9f21-4dfe-a52c-b56506ea29e6"
+            },
+            {
+                "href": "/api/tests/000d6c5e-7f28-4dec-8e49-2095ed62eda8"
+            },
+            {
+                "href": "/api/tests/000ed032-d5cb-4593-b65d-f1ab07924e18"
+            },
+            {
+                "href": "/api/tests/000ee026-d2e6-40fc-8329-6c9418b4a2f6"
+            },
+            {
+                "href": "/api/tests/000f447c-80f2-49a9-b3c3-035367706000"
+            },
+            {
+                "href": "/api/tests/0010d169-003b-48d9-8349-64eb4213426c"
+            }
+        ]
+    },
+    "_embedded": {
+        "activate": {
+            "_links" : {
+                "self" : {
+                    "href" : "/api/activate"
+                }
+            },
+            "_templates" : {
+                "default" : {
+                    "title" : "Activate",
+                    "method" : "post",
+                    "contentType" : "application/json",
+                    "properties" : [
+                        {"name" : "when", "required" : true, "type": "datetime", "value": "2018-04-22T16:45:25+02:00"},
+                        {"name" : "reason", "required" : false, "type": "string", "value": "because"}
+                    ]
+                }
+            }
+        },
+        "item": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "/api/tests/000023cf-8035-4c13-a4ba-548d0100cac9"
+                    }
+                },
+                "id": "000023cf-8035-4c13-a4ba-548d0100cac9"
+            },
+            {
+                "_links": {
+                    "self": {
+                        "href": "/api/tests/000187b1-e264-4b8e-966f-788a062ef85c"
+                    }
+                },
+                "id": "000187b1-e264-4b8e-966f-788a062ef85c"
+            },
+            {
+                "_links": {
+                    "self": {
+                        "href": "/api/tests/0001a2be-99af-42d5-927b-d1ffbdf3f3f3"
+                    }
+                },
+                "id": "0001a2be-99af-42d5-927b-d1ffbdf3f3f3"
+            },
+            {
+                "_links": {
+                    "self": {
+                        "href": "/api/tests/0001b481-1826-45a0-9d6b-0d482e3cafb4"
+                    }
+                },
+                "id": "0001b481-1826-45a0-9d6b-0d482e3cafb4"
+            },
+            {
+                "_links": {
+                    "self": {
+                        "href": "/api/tests/0001fc20-e128-4828-9a35-92a352cf15e1"
+                    }
+                },
+                "id": "0001fc20-e128-4828-9a35-92a352cf15e1"
+            },
+            {
+                "_links": {
+                    "self": {
+                        "href": "/api/tests/00020961-c891-4e3a-9e26-4478a7b9ad75"
+                    }
+                },
+                "id": "00020961-c891-4e3a-9e26-4478a7b9ad75"
+            },
+            {
+                "_links": {
+                    "self": {
+                        "href": "/api/tests/00024b9a-4fac-4c43-add6-115bf3e0ac34"
+                    }
+                },
+                "id": "00024b9a-4fac-4c43-add6-115bf3e0ac34"
+            },
+            {
+                "_links": {
+                    "self": {
+                        "href": "/api/tests/00028654-95d5-4878-89c8-f46ca4f84b1e"
+                    }
+                },
+                "id": "00028654-95d5-4878-89c8-f46ca4f84b1e"
+            },
+            {
+                "_links": {
+                    "self": {
+                        "href": "/api/tests/0002d92f-f3e5-4231-bfe2-16287c8c6c0a"
+                    }
+                },
+                "id": "0002d92f-f3e5-4231-bfe2-16287c8c6c0a"
+            },
+            {
+                "_links": {
+                    "self": {
+                        "href": "/api/tests/00032747-294f-4b5d-80d8-f09c1c482633"
+                    }
+                },
+                "id": "00032747-294f-4b5d-80d8-f09c1c482633"
+            },
+            {
+                "_links": {
+                    "self": {
+                        "href": "/api/tests/0003691b-caa3-4768-b1a7-89dceeae76ee"
+                    }
+                },
+                "id": "0003691b-caa3-4768-b1a7-89dceeae76ee"
+            },
+            {
+                "_links": {
+                    "self": {
+                        "href": "/api/tests/0003db98-8463-4690-a836-a4c9735193e5"
+                    }
+                },
+                "id": "0003db98-8463-4690-a836-a4c9735193e5"
+            },
+            {
+                "_links": {
+                    "self": {
+                        "href": "/api/tests/00046dd0-7246-4893-ab84-7a8977109f4a"
+                    }
+                },
+                "id": "00046dd0-7246-4893-ab84-7a8977109f4a"
+            },
+            {
+                "_links": {
+                    "self": {
+                        "href": "/api/tests/0004dd81-a6cc-453d-8d57-eaf473851c01"
+                    }
+                },
+                "id": "0004dd81-a6cc-453d-8d57-eaf473851c01"
+            },
+            {
+                "_links": {
+                    "self": {
+                        "href": "/api/tests/000531e4-7144-4300-95df-3e5fc001f5fc"
+                    }
+                },
+                "id": "000531e4-7144-4300-95df-3e5fc001f5fc"
+            },
+            {
+                "_links": {
+                    "self": {
+                        "href": "/api/tests/0005a72c-e7d9-4d39-9ea9-c12c7eca1bd3"
+                    }
+                },
+                "id": "0005a72c-e7d9-4d39-9ea9-c12c7eca1bd3"
+            },
+            {
+                "_links": {
+                    "self": {
+                        "href": "/api/tests/00061484-f431-47f2-a94e-b34aa68835e7"
+                    }
+                },
+                "id": "00061484-f431-47f2-a94e-b34aa68835e7"
+            },
+            {
+                "_links": {
+                    "self": {
+                        "href": "/api/tests/0006be52-150a-4732-a352-632e68d48243"
+                    }
+                },
+                "id": "0006be52-150a-4732-a352-632e68d48243"
+            },
+            {
+                "_links": {
+                    "self": {
+                        "href": "/api/tests/00070ea7-13f3-4637-be75-681eb6eac2fb"
+                    }
+                },
+                "id": "00070ea7-13f3-4637-be75-681eb6eac2fb"
+            },
+            {
+                "_links": {
+                    "self": {
+                        "href": "/api/tests/0009d2f1-38ea-4f73-bd1b-ba85075e4756"
+                    }
+                },
+                "id": "0009d2f1-38ea-4f73-bd1b-ba85075e4756"
+            },
+            {
+                "_links": {
+                    "self": {
+                        "href": "/api/tests/000aa3ff-222b-4901-9ac0-7cd666783c99"
+                    }
+                },
+                "id": "000aa3ff-222b-4901-9ac0-7cd666783c99"
+            },
+            {
+                "_links": {
+                    "self": {
+                        "href": "/api/tests/000b2dd1-855b-4e2b-a77b-0520363939da"
+                    }
+                },
+                "id": "000b2dd1-855b-4e2b-a77b-0520363939da"
+            },
+            {
+                "_links": {
+                    "self": {
+                        "href": "/api/tests/000b922e-9f87-46ef-ac28-5fcb4d2db59d"
+                    }
+                },
+                "id": "000b922e-9f87-46ef-ac28-5fcb4d2db59d"
+            },
+            {
+                "_links": {
+                    "self": {
+                        "href": "/api/tests/000cf644-c839-4a22-b3a9-8db4a36eeccd"
+                    }
+                },
+                "id": "000cf644-c839-4a22-b3a9-8db4a36eeccd"
+            },
+            {
+                "_links": {
+                    "self": {
+                        "href": "/api/tests/000d468c-9f21-4dfe-a52c-b56506ea29e6"
+                    }
+                },
+                "id": "000d468c-9f21-4dfe-a52c-b56506ea29e6"
+            },
+            {
+                "_links": {
+                    "self": {
+                        "href": "/api/tests/000d6c5e-7f28-4dec-8e49-2095ed62eda8"
+                    }
+                },
+                "id": "000d6c5e-7f28-4dec-8e49-2095ed62eda8"
+            },
+            {
+                "_links": {
+                    "self": {
+                        "href": "/api/tests/000ed032-d5cb-4593-b65d-f1ab07924e18"
+                    }
+                },
+                "id": "000ed032-d5cb-4593-b65d-f1ab07924e18"
+            },
+            {
+                "_links": {
+                    "self": {
+                        "href": "/api/tests/000ee026-d2e6-40fc-8329-6c9418b4a2f6"
+                    }
+                },
+                "id": "000ee026-d2e6-40fc-8329-6c9418b4a2f6"
+            },
+            {
+                "_links": {
+                    "self": {
+                        "href": "/api/tests/000f447c-80f2-49a9-b3c3-035367706000"
+                    }
+                },
+                "id": "000f447c-80f2-49a9-b3c3-035367706000"
+            },
+            {
+                "_links": {
+                    "self": {
+                        "href": "/api/tests/0010d169-003b-48d9-8349-64eb4213426c"
+                    }
+                },
+                "id": "0010d169-003b-48d9-8349-64eb4213426c"
+            }
+        ]
+    },
+    "totalItems": 100000,
+    "itemsPerPage": 30
+}
