@@ -18,12 +18,14 @@
     "url": "^0.11.0"
   },
   "devDependencies": {
-    "@types/jest": "^22.0.1",
-    "jest": "^22.0.5",
+    "@types/jest": "^22.2.3",
+    "@types/node": "^10.1.4",
+    "jest": "^23.1.0",
     "source-map-loader": "^0.2.1",
-    "ts-loader": "^2.0.3",
-    "typescript": "^2.3.2",
-    "webpack": "^2.4.1",
-    "webpack-dev-server": "^2.4.5"
+    "ts-loader": "^4.3.0",
+    "typescript": "^2.8.4",
+    "webpack": "^4.10.2",
+    "webpack-cli": "^2.1.4",
+    "webpack-dev-server": "^3.1.4"
   }
 }

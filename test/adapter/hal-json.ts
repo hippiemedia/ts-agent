@@ -2,8 +2,8 @@
 import HalJson from '../../src/adapter/hal-json';
 import HalForms from '../../src/adapter/hal-forms';
 import Agent from '../../src/agent';
+import * as fs from 'fs'
 
-const fs = require('fs');
 
 const adapter = new HalJson();
 const agent = new Agent([adapter, new HalForms], (method, url, params, headers) => {
