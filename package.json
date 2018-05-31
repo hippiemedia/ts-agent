@@ -5,7 +5,7 @@
   "main": "dist/bundle.js",
   "types": "src/main.ts",
   "scripts": {
-    "test": "jest build/test/**/*.js",
+    "test": "jest",
     "server": "webpack-dev-server --progress --colors --port 3000",
     "build": "webpack -p --progress --colors",
     "watch": "tsc -w",
@@ -27,5 +27,8 @@
     "webpack": "^4.10.2",
     "webpack-cli": "^2.1.4",
     "webpack-dev-server": "^3.1.4"
+  },
+  "jest": {
+    "testMatch": ["**/build/test/**/*.js"]
   }
 }
