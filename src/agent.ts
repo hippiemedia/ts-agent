@@ -7,7 +7,7 @@ import {Client} from './client';
 export default class Agent
 {
     private adapters: Adapter[];
-    private client: Function;
+    private client: Client;
 
     constructor(adapters: Adapter[], client: Client) {
         this.adapters = adapters;

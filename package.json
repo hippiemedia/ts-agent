@@ -1,16 +1,17 @@
 {
-  "name": "hippiemedia-agent",
+  "name": "@hippiemedia/agent",
   "version": "1.0.0",
   "repository": "https://github.com/hippiemedia/agent",
-  "main": "dist/bundle.js",
-  "types": "src/main.ts",
+  "main": "dist/src/factory.js",
+  "module": "dist/src/factory.js",
+  "types": "dist/src/factory.d.ts",
   "scripts": {
     "test": "jest",
     "server": "webpack-dev-server --progress --colors --port 3000",
-    "build": "webpack -p --progress --colors",
     "watch": "tsc -w",
+    "build": "webpack -p --progress --colors",
     "compile": "tsc",
-    "install": "EXPORT_LIBRARY=true npm run build"
+    "prepack": "tsc && webpack --mode production"
   },
   "dependencies": {
     "h5.linkformat": "^0.0.0",
@@ -29,6 +30,12 @@
     "webpack-dev-server": "^3.1.4"
   },
   "jest": {
-    "testMatch": ["**/build/test/**/*.js"]
-  }
+    "testMatch": [
+      "**/dist/test/**/*.js"
+    ]
+  },
+  "files": [
+    "dist/src",
+    "bundle"
+  ]
 }

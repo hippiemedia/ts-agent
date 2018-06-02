@@ -29,7 +29,7 @@ An hypermedia agent capable of discovering and navigating a web of linked resour
 Then you can create an agent. It's like your browser, but it understands more hypermedia formats: 
 
 ```js
-import factory from 'hippiemedia/agent';
+import factory from '@hippiemedia/agent';
 
 agent = factory();
 ```

@@ -1,10 +1,13 @@
 language: node_js
 node_js:
-  - node
-
+- node
 before_script:
-  - npm run compile
-
+- npm run compile
 cache:
   directories:
-    - node_modules
+  - node_modules
+deploy:
+  provider: npm
+  email: florian.klein@free.fr
+  api_key:
+    secure: sS+5aZpTFNXQm2wAr1QYSwD3UJ8f74m5nC/psO+gxYxTlgrb2J4ul1zdoBEXRLsHb/c41OMOFfH9k/BPlFEHZZbz2xGPqOAEE2Y2qWsQ1AN990grrr7CNHIIYf1XrHDDjSos8Xx06aAmj8RScaTvnGPMDvrLW3J8L28tMSyZzF/V7vka+xtk4XwcqbY2yHerMLp9CB1/nq/svc01AMA7Q6wk6kwUgHTY4VrmcMqPl9TBHYxsgCN1CCHG19L9idJbYT/VuorogyC2vXkrMJN+0vmbtKx0xAn3IN1d6lgEPz/P4jEqnsaS5o4DbWff2Mw55wlGz3IZR7QcUWuOsXyG2kuUCpBHYAAiFlU6nEF0q/edl3QIRAGmIWlKRpwqvR8LAGyy7sGA+m+EXj/qEyclD2lZ9L667cpLheCt798TSZxkB/vHand+ARxQyFGc9DRQyvAeFT6d5zIW2GOfAIsMKTUXFgZ21XVF1vkE0QeYOAnyeigbhL5KmONwFqasi0FYFwxulALZ/MKtdPl/m/VIWR2LCrINe2UpUsORJiz2uwfgdOr1/KNf39n48FkBeDNwKsHpx+Srdy6aAHpfJasvmyN/0qPlvwIlIlhy9h+o0BTXfJhBz9ELpfngMmiGnQM84BTRC1ldtPpHZTD/TBm75gT+4Xa/EwxeOqNyyXlpPys=

@@ -1,10 +1,14 @@
 const path = require('path');
 
-const config = {
-    entry: './src/main.ts',
+module.exports = {
+    entry: './src/factory.ts',
     output: {
-        path: path.resolve(__dirname, './dist'),
-        filename: 'bundle.js',
+        path: path.resolve(__dirname, './bundle'),
+        filename: 'index.js',
+        library: '@hippiemedia/agent',
+        libraryTarget: 'umd',
+        libraryExport: 'default',
+        umdNamedDefine: true
     },
     resolve: {
         extensions: ['.js', '.ts']
@@ -34,16 +38,4 @@ const config = {
             }
         }
     },
-};
-
-if (process.env.EXPORT_LIBRARY) {
-    config.output = {
-        path: path.resolve(__dirname, './dist'),
-        filename: 'bundle.js',
-        library: 'hippiemedia-agent',
-        libraryTarget: 'umd',
-        umdNamedDefine: true
-    }
 }
-
-module.exports = config;

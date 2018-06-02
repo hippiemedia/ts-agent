@@ -2,7 +2,7 @@
 import Agent from '../agent';
 import Resource from '../resource';
 
-type Field = {
+export type Field = {
     name: string,
     type: string,
     required: boolean,
@@ -18,7 +18,7 @@ export default class Operation
     public readonly href: string;
     public fields: Field[];
 
-    constructor(agent: Agent, rel: string, method: string, href: string, accept: string, fields) {
+    constructor(agent: Agent, rel: string, method: string, href: string, accept: string, fields: Field[]) {
         this.agent = agent;
         this.rel = rel;
         this.method = method;
@@ -27,7 +27,7 @@ export default class Operation
         this.fields = fields;
     }
 
-    fill(fields) {
+    fill(fields: Field[]) {
         this.fields = fields;
         return this;
     }
