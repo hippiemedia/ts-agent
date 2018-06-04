@@ -6,12 +6,14 @@ export interface Client { (method, url, params, headers): Promise<Response> };
 export async function fetchApi(method, url, params, headers): Promise<Response> {
     return fetch(url, {
         method: method,
-        headers: headers,
-        body: JSON.stringify(params),
+        headers: {'Content-Type': 'application/x-www-form-urlencoded', ...headers},
+        body: Object.keys(params).length !== 0 ? new URLSearchParams(params).toString() : null
     }).then(async function(response) {
         return {
             contentType: await response.headers.get('content-type'),
-            getHeader: response.headers.get.bind(response),
+            getHeader: (name) => {
+                return response.headers.get(name);
+            },
             body: await response.text(),
         };
     });
@@ -21,7 +23,7 @@ export function xhr(method, url, params, headers): Promise<Response> {
     return new Promise((resolve, reject) => {
         var xhr = new XMLHttpRequest();
         xhr.open(method, url, true);
-        params = Object.keys(params || {}).map(function(key){
+        params = Object.keys(params || {}).map(key => {
           return encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
         }).join('&');
 
@@ -49,6 +51,7 @@ export function xhr(method, url, params, headers): Promise<Response> {
         xhr.onerror = () => {
           reject(this);
         };
-        xhr.send(params);
+        let body = Object.keys(params).length !== 0 ? new URLSearchParams(params) : null
+        xhr.send(body);
     });
 };

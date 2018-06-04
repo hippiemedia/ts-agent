@@ -4,7 +4,6 @@
   "repository": "https://github.com/hippiemedia/agent",
   "main": "dist/src/factory.js",
   "module": "dist/src/factory.js",
-  "types": "dist/src/factory.d.ts",
   "scripts": {
     "test": "jest",
     "server": "webpack-dev-server --progress --colors --port 3000",

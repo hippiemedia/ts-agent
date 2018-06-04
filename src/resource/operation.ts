@@ -7,6 +7,8 @@ export type Field = {
     type: string,
     required: boolean,
     value: string,
+    multiple: boolean,
+    example: string,
 };
 
 export default class Operation
@@ -32,7 +34,7 @@ export default class Operation
         return this;
     }
 
-    submit(): Promise<Resource> {
-        return this.agent.call(this.method, this.href, this.fields, {Accept: this.accept});
+    submit(fields: Field[] = []): Promise<Resource> {
+        return this.agent.call(this.method, this.href, fields || this.fields, {Accept: this.accept});
     }
 }

@@ -9,7 +9,8 @@ export default class HalJson implements Adapter
 {
     supports(contentType)
     {
-        return contentType.includes('application/hal+json');
+        return contentType.includes('application/hal+json')
+            || contentType.includes('application/vnd.error+json');
     }
 
     accepts()
@@ -23,9 +24,13 @@ export default class HalJson implements Adapter
             body = JSON.parse(body);
         }
 
+        let state = {...body};
+        delete state._links;
+        delete state._embedded;
+
         return new Resource(
             url,
-            body,
+            state,
             contentType,
             this.buildLinks(agent, url, accept, body, contentType)
         );

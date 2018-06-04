@@ -30,7 +30,11 @@ export default class HalForms implements Adapter
             return new Operation(agent, 'default', template.default.method, url, accept, template.default.properties); //@TODO .default ?
         });
 
-        return new Resource(url, body, contentType, [], operations);
+        let state = {...body};
+        delete state._links;
+        delete state._templates;
+
+        return new Resource(url, state, contentType, [], operations);
     }
 }
 

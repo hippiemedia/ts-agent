@@ -1,6 +1,7 @@
 
 import Agent from '../agent';
 import Resource from '../resource';
+import {Field} from './operation';
 import * as parser from 'uri-template';
 
 export default class Link
@@ -11,16 +12,18 @@ export default class Link
     public readonly rel: string;
     public readonly href: string;
     public readonly templated: Boolean;
+    public fields: Field[] = [];
     private uriTemplate;
 
     constructor(rel: string, agent, accept, href, resolved, templated) {
         this.rel = rel;
         this.agent = agent;
-        this.href = href;
+        this.href = decodeURI(href);
         this.resolved = resolved;
         this.templated = templated;
         if (templated) {
             this.uriTemplate = parser.parse(this.href);
+            this.fields = this.uriTemplate.expressions.reduce((acc, e) => acc.concat(e.params.map(p => {return {name: p.name}})), []);
         }
     }
 

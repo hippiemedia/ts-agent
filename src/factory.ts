@@ -3,7 +3,7 @@ import Agent from './agent';
 import JsonLd from './adapter/json-ld';
 import HalJson from './adapter/hal-json';
 import HalForms from './adapter/hal-forms';
-import {xhr} from './client';
+import {xhr as client} from './client';
 
 export default function factory(decorator: Function = null) {
     return new Agent(
@@ -12,7 +12,7 @@ export default function factory(decorator: Function = null) {
             new HalJson(),
             new HalForms(),
         ],
-        decorator ? decorator(xhr) : xhr
+        decorator ? decorator(client) : client
     );
 };
 
