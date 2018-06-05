@@ -5,6 +5,7 @@ import * as UriTemplate from 'uri-templates';
 
 export type Field = {
     name: string,
+    description: string,
     type: string,
     required: boolean,
     value: string,

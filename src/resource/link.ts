@@ -40,9 +40,9 @@ export default class Link
         }
     }
 
-    follow(fields = {}): Promise<Resource>
+    follow(fields = {}, force = false): Promise<Resource>
     {
-        if (this.resolved) {
+        if (!force && this.resolved) {
             return Promise.resolve(this.resolved);
         }
 
