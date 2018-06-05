@@ -1,6 +1,7 @@
 
 import Agent from '../agent';
 import Resource from '../resource';
+import * as UriTemplate from 'uri-templates';
 
 export type Field = {
     name: string,
@@ -13,28 +14,35 @@ export type Field = {
 
 export default class Operation
 {
+    private uriTemplate;
     private agent: Agent;
     private accept: string;
     public readonly rel: string;
+    public readonly title: string;
+    public readonly description: string;
     public readonly method: string;
     public readonly href: string;
+    public readonly templated: Boolean;
     public fields: Field[];
 
-    constructor(agent: Agent, rel: string, method: string, href: string, accept: string, fields: Field[]) {
+    constructor(agent: Agent, rel: string, title: string, description: string, method: string, href: string, templated, accept: string, fields: Field[]) {
         this.agent = agent;
         this.rel = rel;
+        this.title = title;
+        this.description = description;
         this.method = method;
         this.href = href;
+        this.templated = templated;
         this.accept = accept;
         this.fields = fields;
+        if (templated) {
+            this.uriTemplate = new UriTemplate(this.href);
+        }
     }
 
-    fill(fields: Field[]) {
-        this.fields = fields;
-        return this;
-    }
+    submit(params): Promise<Resource> {
+        let href = this.templated ? this.uriTemplate.fill(params) : this.href;
 
-    submit(fields: Field[] = []): Promise<Resource> {
-        return this.agent.call(this.method, this.href, fields || this.fields, {Accept: this.accept});
+        return this.agent.call(this.method, href, params, {Accept: this.accept});
     }
 }

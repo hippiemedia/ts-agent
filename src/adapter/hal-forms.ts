@@ -27,7 +27,17 @@ export default class HalForms implements Adapter
         }
 
         let operations = templates.map(template => {
-            return new Operation(agent, 'default', template.default.method, url, accept, template.default.properties); //@TODO .default ?
+            return new Operation(
+                agent,
+                'default',
+                template.default.title,
+                template.default.description,
+                template.default.method,
+                url,
+                template.default.templated || false,
+                accept,
+                template.default.properties
+            );
         });
 
         let state = {...body};

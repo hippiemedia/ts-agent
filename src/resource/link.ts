@@ -2,7 +2,7 @@
 import Agent from '../agent';
 import Resource from '../resource';
 import {Field} from './operation';
-import * as parser from 'uri-template';
+import * as UriTemplate from 'uri-templates';
 
 export default class Link
 {
@@ -10,20 +10,33 @@ export default class Link
     private agent: Agent;
     private accept: string;
     public readonly rel: string;
+    public readonly title: string;
+    public readonly description: string;
     public readonly href: string;
     public readonly templated: Boolean;
     public fields: Field[] = [];
     private uriTemplate;
 
-    constructor(rel: string, agent, accept, href, resolved, templated) {
+    constructor(rel: string, title: string, description: string, agent, accept, href, resolved, templated) {
         this.rel = rel;
+        this.title = title;
+        this.description = description;
         this.agent = agent;
-        this.href = decodeURI(href);
+        this.href = href;
         this.resolved = resolved;
         this.templated = templated;
         if (templated) {
-            this.uriTemplate = parser.parse(this.href);
-            this.fields = this.uriTemplate.expressions.reduce((acc, e) => acc.concat(e.params.map(p => {return {name: p.name}})), []);
+            this.uriTemplate = new UriTemplate(this.href);
+            this.fields = this.uriTemplate.varNames.map(name => ({
+                name: name,
+                type: 'text',
+                title: this.title,
+                description: this.description,
+                required: true,
+                example: null,
+                value: null,
+                multiple: false,
+            }));
         }
     }
 
@@ -33,7 +46,7 @@ export default class Link
             return Promise.resolve(this.resolved);
         }
 
-        var href = this.templated ? this.uriTemplate.expand(fields) : this.href;
+        let href = this.templated ? this.uriTemplate.fill(fields) : this.href;
 
         return this.agent.call('GET', href, fields, {Accept: this.accept});
     }
@@ -41,5 +54,9 @@ export default class Link
     toString()
     {
         return this.rel;
+    }
+
+    isResolved() {
+        return !!this.resolved;
     }
 }

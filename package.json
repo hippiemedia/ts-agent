@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "h5.linkformat": "^0.0.0",
-    "uri-template": "^1.0.1",
+    "uri-templates": "^0.2.0",
     "url": "^0.11.0"
   },
   "devDependencies": {

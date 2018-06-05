@@ -52,12 +52,22 @@ export default class HalJson implements Adapter
 
             embedded.forEach(entry => {
                 let entryLinks = this.normalizeLinks(entry, 'self');
-                if (entryLinks[0]) {
-                    resolved.set(entryLinks[0].href, agent.build(entryLinks[0].href, links[0].type || contentType, entry))
+                let link = entryLinks[0];
+                if (link) {
+                    resolved.set(link.href, agent.build(link.href, links[0].type || contentType, entry))
                 }
             });
 
-            return links.map(link => new Link(rel, agent, accept, link.href, resolved.get(link.href), link.templated || false));
+            return links.map(link => new Link(
+                rel,
+                link.title || '',
+                link.description || '',
+                agent,
+                accept,
+                link.href,
+                resolved.get(link.href),
+                link.templated || false
+            ));
         }).reduce((acc, val) => acc.concat(val), []);
     }
 

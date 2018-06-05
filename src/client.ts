@@ -23,9 +23,6 @@ export function xhr(method, url, params, headers): Promise<Response> {
     return new Promise((resolve, reject) => {
         var xhr = new XMLHttpRequest();
         xhr.open(method, url, true);
-        params = Object.keys(params || {}).map(key => {
-          return encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
-        }).join('&');
 
         if (-1 !== ['post', 'put', 'patch'].indexOf(method.toLowerCase())) {
             headers = Object.assign({}, {
@@ -51,7 +48,10 @@ export function xhr(method, url, params, headers): Promise<Response> {
         xhr.onerror = () => {
           reject(this);
         };
-        let body = Object.keys(params).length !== 0 ? new URLSearchParams(params) : null
-        xhr.send(body);
+        params = Object.keys(params || {}).map(key => {
+          return encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
+        }).join('&');
+        //params = Object.keys(params).length !== 0 ? new URLSearchParams(params) : null
+        xhr.send(params);
     });
 };
