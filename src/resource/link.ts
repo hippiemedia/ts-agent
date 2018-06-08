@@ -30,8 +30,8 @@ export default class Link
             this.fields = this.uriTemplate.varNames.map(name => ({
                 name: name,
                 type: 'text',
-                title: this.title,
-                description: this.description,
+                title: null,
+                description: null,
                 required: true,
                 example: null,
                 value: null,

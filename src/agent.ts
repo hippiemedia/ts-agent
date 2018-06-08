@@ -21,13 +21,14 @@ export default class Agent
     async call(method, url, params, headers = {}): Promise<Resource> {
         let response = await this.client(method, url, params, headers);
 
-        return this.build(url, response.getHeader('content-type') || '', response.body);
+        return this.build(response);
     }
 
-    build(url, contentType, body) {
+    build(response: Response) {
+        let contentType = response.getHeader('Content-Type');
         let adapter = this.getAdapter(contentType);
 
-        return adapter.build(this, url, this.accept(contentType), contentType, body);
+        return adapter.build(this, response, this.accept(contentType));
     }
 
     private getAdapter(type): Adapter {

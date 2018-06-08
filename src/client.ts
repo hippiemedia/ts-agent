@@ -7,9 +7,11 @@ export async function fetchApi(method, url, params, headers): Promise<Response> 
     return fetch(url, {
         method: method,
         headers: {'Content-Type': 'application/x-www-form-urlencoded', ...headers},
-        body: Object.keys(params).length !== 0 ? new URLSearchParams(params).toString() : null
+        body: (-1 !== ['post', 'put', 'patch'].indexOf(method.toLowerCase())) ? new URLSearchParams(params).toString() : null
     }).then(async function(response) {
         return {
+            url: url,
+            status: response.status,
             contentType: await response.headers.get('content-type'),
             getHeader: (name) => {
                 return response.headers.get(name);
@@ -37,6 +39,8 @@ export function xhr(method, url, params, headers): Promise<Response> {
         xhr.onload = () => {
             if (xhr.status >= 200 && xhr.status < 400) {
                 resolve({
+                    url: url,
+                    status: xhr.status,
                     contentType: xhr.getResponseHeader('content-type'),
                     getHeader: xhr.getResponseHeader.bind(xhr),
                     body: xhr.responseText,

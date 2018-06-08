@@ -2,6 +2,7 @@
 import Adapter from '../adapter';
 import Resource from '../resource';
 import Operation from '../resource/operation';
+import Response from '../client/response';
 
 export default class HalForms implements Adapter
 {
@@ -15,8 +16,9 @@ export default class HalForms implements Adapter
         return 'application/prs.hal-forms+json';
     }
 
-    build(agent, url: string, accept: string, contentType, body)
+    build(agent, response: Response, accept: string)
     {
+        let body = response.body;
         if (typeof body === 'string') {
             body = JSON.parse(body);
         }
@@ -33,7 +35,7 @@ export default class HalForms implements Adapter
                 template.default.title,
                 template.default.description,
                 template.default.method,
-                url,
+                response.url,
                 template.default.templated || false,
                 accept,
                 template.default.properties
@@ -44,7 +46,7 @@ export default class HalForms implements Adapter
         delete state._links;
         delete state._templates;
 
-        return new Resource(url, state, contentType, [], operations);
+        return new Resource(response, state, [], operations);
     }
 }
 

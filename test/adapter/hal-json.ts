@@ -8,6 +8,8 @@ import * as fs from 'fs'
 const adapter = new HalJson();
 const agent = new Agent([adapter, new HalForms], (method, url, params, headers) => {
     return Promise.resolve({
+        url: url,
+        status: 200,
         getHeader: () => 'application/hal+json',
         contentType: 'application/hal+json',
         body: '{}'
@@ -15,7 +17,13 @@ const agent = new Agent([adapter, new HalForms], (method, url, params, headers) 
 });
 
 test('populates links', async () => {
-    let resource = await adapter.build(agent, 'http://example.com', 'application/hal+json', 'application/hal+json', fs.readFileSync('test/format/hal/example.json').toString());
+    let resource = await adapter.build(agent, {
+        url: 'http://example.com',
+        status: 200,
+        contentType: 'application/hal+json',
+        getHeader: () => 'application/hal+json',
+        body: fs.readFileSync('test/format/hal/example.json').toString(),
+    }, 'application/hal+json');
 
     expect(resource.allLinks).toHaveLength(6);
 
@@ -24,13 +32,25 @@ test('populates links', async () => {
 });
 
 test('uses embedded', async () => {
-    let resource = await adapter.build(agent, 'http://example.com', 'application/hal+json', 'application/hal+json', fs.readFileSync('test/format/hal/collection.json').toString());
+    let resource = await adapter.build(agent, {
+        url: 'http://example.com',
+        status: 200,
+        contentType: 'application/hal+json',
+        getHeader: () => 'application/hal+json',
+        body: fs.readFileSync('test/format/hal/collection.json').toString(),
+    }, 'application/hal+json');
 
     expect(resource.followAll('item')).toHaveLength(30);
 });
 
 test('populates operations', async () => {
-    let resource = await adapter.build(agent, 'http://example.com', 'application/hal+json', 'application/hal+json', fs.readFileSync('test/format/hal/collection.json').toString());
+    let resource = await adapter.build(agent, {
+        url: 'http://example.com',
+        status: 200,
+        contentType: 'application/hal+json',
+        getHeader: () => 'application/hal+json',
+        body: fs.readFileSync('test/format/hal/collection.json').toString(),
+    }, 'application/hal+json');
 
     let op = await resource.follow('activate').then(r => r.operation('default'));
     expect(op.fields).toHaveLength(2);

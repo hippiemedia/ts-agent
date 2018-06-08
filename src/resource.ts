@@ -1,19 +1,20 @@
 
 import Operation from './resource/operation';
 import Link from './resource/link';
+import Response from './client/response';
 
 export default class Resource
 {
-    public readonly contentType: string;
+    public readonly response: Response;
     public readonly url: string;
     public readonly allLinks: Link[];
     public readonly operations: Operation[];
     public readonly state;
 
-    constructor(url: string, state, contentType: string, links: Link[] = [], operations: Operation[] = []) {
-        this.url = url;
+    constructor(response: Response, state, links: Link[] = [], operations: Operation[] = []) {
+        this.response = response;
+        this.url = response.url;
         this.state = state;
-        this.contentType = contentType;
         this.allLinks = links;
         this.operations = operations;
     }

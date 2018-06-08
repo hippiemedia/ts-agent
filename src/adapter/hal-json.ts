@@ -18,10 +18,11 @@ export default class HalJson implements Adapter
         return 'application/hal+json';
     }
 
-    build(agent, url: string, accept: string, contentType, body)
+    build(agent, response: Response, accept: string)
     {
-        if (typeof body === 'string') {
-            body = JSON.parse(body);
+        let body = response.body;
+        if (typeof response.body === 'string') {
+            body = JSON.parse(response.body);
         }
 
         let state = {...body};
@@ -29,14 +30,13 @@ export default class HalJson implements Adapter
         delete state._embedded;
 
         return new Resource(
-            url,
+            response,
             state,
-            contentType,
-            this.buildLinks(agent, url, accept, body, contentType)
+            this.buildLinks(agent, response, body, accept)
         );
     }
 
-    private buildLinks(agent, url, accept, content, contentType) {
+    private buildLinks(agent, response, content, accept) {
         if (!content._links) {
             return [];
         }
@@ -54,7 +54,13 @@ export default class HalJson implements Adapter
                 let entryLinks = this.normalizeLinks(entry, 'self');
                 let link = entryLinks[0];
                 if (link) {
-                    resolved.set(link.href, agent.build(link.href, links[0].type || contentType, entry))
+                    resolved.set(link.href, agent.build({
+                        url: link.href,
+                        status: 200,
+                        body: entry,
+                        contentType: links[0].type || response.contentType,
+                        getHeader: () => links[0].type || this.accepts()
+                    }));
                 }
             });
 
