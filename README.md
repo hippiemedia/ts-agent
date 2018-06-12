@@ -4,7 +4,7 @@
 ## TL;DR
 
 ``` js
-import factory from 'hippiemedia/agent';
+import factory from '@hippiemedia/agent';
 
 agent = factory();
 let resource = await agent.follow('http://haltalk.herokuapp.com/');
@@ -17,7 +17,7 @@ An hypermedia agent capable of discovering and navigating a web of linked resour
 
 ## How ?
 
-    npm install hippiemedia/agent
+    npm install @hippiemedia/agent
 
 
 ### build webpack bundle
