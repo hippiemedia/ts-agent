@@ -35,6 +35,9 @@ module.exports = {
                 if (path.basename(path.dirname(file)) == 'hal') {
                     res.set('Content-Type', 'application/hal+json');
                 }
+                if (path.basename(path.dirname(file)) == 'json') {
+                    res.set('Content-Type', 'application/json');
+                }
             }
         }
     },

@@ -25,13 +25,13 @@ export default class Agent
     }
 
     build(response: Response) {
-        let contentType = response.getHeader('Content-Type');
+        let contentType = response.getHeader('Content-Type') || '';
         let adapter = this.getAdapter(contentType);
 
         return adapter.build(this, response, this.accept(contentType));
     }
 
-    private getAdapter(type): Adapter {
+    private getAdapter(type: string): Adapter {
         return this.adapters.find(adapter => {
             return adapter.supports(type);
         }) || (() => { throw Error(type); })();
