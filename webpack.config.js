@@ -18,7 +18,8 @@ module.exports = {
             { test: /\.ts$/, loader: 'ts-loader' }
         ],
     },
-    devtool: 'source-map',
+    mode: 'development',
+    devtool: 'inline-source-map',
     devServer: {
         headers: {
             'Access-Control-Allow-Origin': '*',

@@ -3,7 +3,6 @@ import Adapter from '../adapter';
 import Resource from '../resource';
 import Link from '../resource/link';
 import Response from '../client/response';
-import {resolve} from 'url';
 
 export default class HalJson implements Adapter
 {
