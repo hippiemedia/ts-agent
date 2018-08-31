@@ -28,10 +28,13 @@ export default class HalJson implements Adapter
         delete state._links;
         delete state._embedded;
 
+        let links = this.buildLinks(agent, response, body, accept);
+
         return new Resource(
             response,
             state,
-            this.buildLinks(agent, response, body, accept)
+            links.filter(link => !link.templated),
+            links.filter(link => link.templated)
         );
     }
 

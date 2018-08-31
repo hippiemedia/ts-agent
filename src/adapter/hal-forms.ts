@@ -46,7 +46,7 @@ export default class HalForms implements Adapter
         delete state._links;
         delete state._templates;
 
-        return new Resource(response, state, [], operations);
+        return new Resource(response, state, [], [], operations);
     }
 }
 

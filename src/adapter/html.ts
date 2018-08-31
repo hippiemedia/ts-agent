@@ -25,37 +25,38 @@ export default class Html implements Adapter
         return new Resource(
             response,
             doc,
-            Array.from(doc.documentElement.querySelectorAll('a, *[rel]')).map(link => {
+            Array.from(doc.documentElement.querySelectorAll('a, *[rel]')).map((link: HTMLLinkElement) => {
                 return new Link(
                     link.getAttribute('rel') || 'link',
-                    link.getAttribute('title') || link.getAttribute('href'),
+                    link.getAttribute('title') || link.href,
                     '',
                     agent,
                     accept,
-                    link.getAttribute('href'),
+                    link.href,
                     null,
                     false
                 );
-            }).concat(Array.from(doc.documentElement.querySelectorAll('form[method="get"]')).map(link => {
+            }),
+            Array.from(doc.documentElement.querySelectorAll('form[method="get"]')).map((form: HTMLFormElement) => {
                 return new Link(
-                    link.getAttribute('rel') || 'link',
-                    link.getAttribute('title') || link.getAttribute('action'),
+                    form.getAttribute('rel') || 'link',
+                    form.getAttribute('title') || decodeURIComponent(form.action),
                     '',
                     agent,
                     accept,
-                    link.getAttribute('action'),
+                    decodeURIComponent(form.action),
                     null,
                     true
                 );
-            })),
-            Array.from(doc.documentElement.querySelectorAll('form[method="post"]')).map(form => {
+            }),
+            Array.from(doc.documentElement.querySelectorAll('form[method="post"]')).map((form: HTMLFormElement) => {
                 return new Operation(
                     agent,
                     form.getAttribute('method'),
-                    form.getAttribute('action'),
+                    form.action,
                     '',
                     form.getAttribute('method'),
-                    form.getAttribute('action'),
+                    decodeURIComponent(form.action),
                     false,
                     accept,
                     []
