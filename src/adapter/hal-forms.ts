@@ -3,9 +3,16 @@ import Adapter from '../adapter';
 import Resource from '../resource';
 import Operation from '../resource/operation';
 import Response from '../client/response';
+import HalJson from './hal-json';
 
 export default class HalForms implements Adapter
 {
+    private hal;
+
+    constructor(hal: HalJson) {
+        this.hal = hal;
+    }
+
     supports(contentType)
     {
         return contentType.includes('application/prs.hal-forms+json');
@@ -46,7 +53,15 @@ export default class HalForms implements Adapter
         delete state._links;
         delete state._templates;
 
-        return new Resource(response, state, [], [], operations);
+        let links = this.hal.buildLinks(agent, response, body, accept);
+
+        return new Resource(
+            response,
+            state,
+            links.filter(link => !link.templated),
+            links.filter(link => link.templated),
+            operations
+        );
     }
 }
 

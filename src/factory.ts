@@ -8,10 +8,11 @@ import Fallback from './adapter/fallback';
 import {fetchApi as client} from './client';
 
 export default function factory(decorator: Function = null) {
+    let halJson = new HalJson();
     return new Agent(
         [
-            new HalJson(),
-            new HalForms(),
+            halJson,
+            new HalForms(halJson),
             new Json(),
             new Html(),
             new Fallback()
@@ -19,3 +20,5 @@ export default function factory(decorator: Function = null) {
         decorator ? decorator(client) : client
     );
 };
+
+window['agent'] = factory();

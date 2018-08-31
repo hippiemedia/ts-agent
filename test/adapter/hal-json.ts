@@ -6,7 +6,7 @@ import * as fs from 'fs'
 
 
 const adapter = new HalJson();
-const agent = new Agent([adapter, new HalForms], (method, url, params, headers) => {
+const agent = new Agent([adapter, new HalForms(adapter)], (method, url, params, headers) => {
     return Promise.resolve({
         url: url,
         status: 200,

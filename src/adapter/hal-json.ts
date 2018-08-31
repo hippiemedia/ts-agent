@@ -38,7 +38,7 @@ export default class HalJson implements Adapter
         );
     }
 
-    private buildLinks(agent, response, content, accept) {
+    buildLinks(agent, response, content, accept) {
         if (!content._links) {
             return [];
         }
