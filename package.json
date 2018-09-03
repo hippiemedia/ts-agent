@@ -18,14 +18,14 @@
   },
   "devDependencies": {
     "@types/jest": "^22.2.3",
-    "@types/node": "^10.1.4",
-    "jest": "^23.1.0",
-    "source-map-loader": "^0.2.1",
-    "ts-loader": "^4.3.0",
-    "typescript": "^2.8.4",
-    "webpack": "^4.10.2",
-    "webpack-cli": "^2.1.4",
-    "webpack-dev-server": "^3.1.4"
+    "@types/node": "^10.9.4",
+    "jest": "^23.5.0",
+    "source-map-loader": "^0.2.4",
+    "ts-loader": "^4.5.0",
+    "typescript": "^2.9.2",
+    "webpack": "^4.17.1",
+    "webpack-cli": "^2.1.5",
+    "webpack-dev-server": "^3.1.7"
   },
   "jest": {
     "testMatch": [
