@@ -4,23 +4,23 @@ import Resource from '../../resource';
 
 export class Collection
 {
-    public readonly links: Link[];
+    public readonly all: Link[];
 
     constructor(links: Link[] = []) {
-        this.links = links;
+        this.all = links;
     }
 
     follow(rel, criteria = () => true): Promise<Resource>
     {
-        let link = this.links.filter(link => link.rel === rel).find(criteria);
+        let link = this.all.filter(link => link.rel === rel).find(criteria);
         if (link) {
             return link.follow();
         }
-        return Promise.reject(new Error(`no such link relation "${rel}" in "${this.links}"`));
+        return Promise.reject(new Error(`no such link relation "${rel}" in "${this.all}"`));
     }
 
     followAll(rel, criteria = () => true): Promise<Resource>[]
     {
-        return this.links.filter(link => link.rel === rel).filter(criteria).map(link => link.follow());
+        return this.all.filter(link => link.rel === rel).filter(criteria).map(link => link.follow());
     }
 }

@@ -58,8 +58,7 @@ export default class HalForms implements Adapter
         return new Resource(
             response,
             state,
-            links.filter(link => !link.templated),
-            links.filter(link => link.templated),
+            links,
             operations
         );
     }

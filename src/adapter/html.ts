@@ -36,8 +36,7 @@ export default class Html implements Adapter
                     null,
                     false
                 );
-            }),
-            Array.from(doc.documentElement.querySelectorAll('form[method="get"]')).map((form: HTMLFormElement) => {
+            }).concat(Array.from(doc.documentElement.querySelectorAll('form[method="get"]')).map((form: HTMLFormElement) => {
                 return new Link(
                     form.getAttribute('rel') || 'link',
                     form.getAttribute('title') || decodeURIComponent(form.action),
@@ -48,7 +47,7 @@ export default class Html implements Adapter
                     null,
                     true
                 );
-            }),
+            })),
             Array.from(doc.documentElement.querySelectorAll('form[method="post"]')).map((form: HTMLFormElement) => {
                 return new Operation(
                     agent,

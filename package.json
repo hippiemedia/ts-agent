@@ -9,7 +9,7 @@
     "test": "jest",
     "server": "webpack-dev-server --progress --colors --port 3000",
     "watch": "tsc -w",
-    "build": "webpack -p --progress --colors",
+    "build": "webpack -p --progress --colors -w",
     "compile": "tsc",
     "prepack": "tsc && webpack --mode production"
   },

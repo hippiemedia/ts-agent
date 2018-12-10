@@ -35,10 +35,21 @@ export default class Operation
         this.href = href;
         this.templated = templated;
         this.accept = accept;
-        this.fields = fields;
+        this.fields = [];
         if (templated) {
             this.uriTemplate = new UriTemplate(this.href);
+            this.fields = this.uriTemplate.varNames.map(name => ({
+                name: name,
+                type: 'text',
+                title: null,
+                description: null,
+                required: true,
+                example: null,
+                value: null,
+                multiple: false,
+            }));
         }
+        this.fields = this.fields.concat(fields.filter(newField => !this.fields.find(field => field.name == newField.name)));
     }
 
     submit(params): Promise<Resource> {

@@ -17,7 +17,7 @@ export default class HalJson implements Adapter
         return 'application/hal+json';
     }
 
-    build(agent, response: Response, accept: string)
+    async build(agent, response: Response, accept: string)
     {
         let body = response.body;
         if (typeof response.body === 'string') {
@@ -33,8 +33,8 @@ export default class HalJson implements Adapter
         return new Resource(
             response,
             state,
-            links.filter(link => !link.templated),
-            links.filter(link => link.templated)
+            links,
+            []
         );
     }
 

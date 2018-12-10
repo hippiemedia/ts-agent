@@ -25,10 +25,9 @@ test('populates links', async () => {
         body: fs.readFileSync('test/format/hal/example.json').toString(),
     }, 'application/hal+json');
 
-    expect(resource.links.links).toHaveLength(4);
-    expect(resource.templates.links).toHaveLength(2);
+    expect(resource.links).toHaveLength(6);
 
-    let found = await resource.templates.follow('ea:find', {id: 'test'});
+    let found = await resource.follow('ea:find', {id: 'test'});
     expect(found.url).toBe('/orders?id=test');
 });
 
@@ -41,7 +40,7 @@ test('uses embedded', async () => {
         body: fs.readFileSync('test/format/hal/collection.json').toString(),
     }, 'application/hal+json');
 
-    expect(resource.links.followAll('item')).toHaveLength(30);
+    expect(resource.followAll('item')).toHaveLength(30);
 });
 
 test('populates operations', async () => {
@@ -53,7 +52,8 @@ test('populates operations', async () => {
         body: fs.readFileSync('test/format/hal/collection.json').toString(),
     }, 'application/hal+json');
 
-    let op = await resource.links.follow('activate').then(r => r.operation('default'));
+    //let op = resource.operation('activate');
+    let op = await resource.follow('activate').then(r => r.operation('default'));
     expect(op.fields).toHaveLength(2);
     expect(op.fields[0]).toEqual({name: 'when', required : true, type: 'datetime', value: '2018-04-22T16:45:25+02:00'});
     expect(op.fields[1]).toEqual({name: 'reason', required : false, type: 'string', value: 'because'});

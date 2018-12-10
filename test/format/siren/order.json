@@ -1,0 +1,45 @@
+{
+    "class": [ "order" ],
+    "properties": {
+        "orderNumber": 42,
+        "itemCount": 3,
+        "status": "pending"
+    },
+    "entities": [
+        {
+            "class": [ "items", "collection" ],
+            "rel": [ "/api/rels/order-items" ],
+            "href": "/api/orders/42/items"
+        },
+        {
+            "class": [ "info", "customer" ],
+            "rel": [ "/api/rels/customer" ],
+            "properties": {
+                "customerId": "pj123",
+                "name": "Peter Joseph"
+            },
+            "links": [
+                { "rel": [ "self" ], "href": "/api/customers/pj123" }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "add-item",
+            "title": "Add Item",
+            "method": "POST",
+            "href": "/api/orders/42/items",
+            "type": "application/x-www-form-urlencoded",
+            "fields": [
+                { "name": "orderNumber", "type": "hidden", "value": "42" },
+                { "name": "productCode", "type": "text" },
+                { "name": "quantity", "type": "number" }
+            ]
+        }
+    ],
+    "links": [
+        { "rel": [ "self" ], "href": "/api/orders/42" },
+        { "rel": [ "previous" ], "href": "/api/orders/41" },
+        { "rel": [ "next" ], "href": "/api/orders/43" }
+    ]
+}

@@ -36,6 +36,7 @@ agent = factory();
 
  - html [ ]
  - ld+json (+hydra) [ ]
+ - siren+json [ ]
  - hal+json [x]
  - hal-forms [x]
  - vnd.api+json [ ]
@@ -53,7 +54,7 @@ It's important to let the agent discover links instead of hardcoding them.
 You can do that by introspecting resources:
 
 ```js
-let menu = resource.allLinks.map(link => render(`<a href="${link.href}">${link.rel}</a>`));
+let menu = resource.links.map(link => render(`<a href="${link.href}">${link.rel}</a>`));
 
 let actions = resource.operations.map(o => render(`<form method="${o.method}" action="${o.href}">
     ${o.fields.map(field => render(`<input type=${field.type} />`))}
@@ -80,16 +81,17 @@ You can follow links as you follow them in your browser.
 
 ```js
 let resource = await agent.follow('http://some-hypermedia-api.com/resource1');
-console.log(resource.allLinks);
+console.log(resource.links);
 let comments = await resource.followAll('comments');
 ```
 
-### Queries
+### Templated Links
 
-Some links can be templated. You can expand them using:
+You can follow templated links as you follow links:
 
 ```js
-let found = await resource.follow('find', {name: 'yay', 'year': 2018});
+let resource = await agent.follow('http://some-hypermedia-api.com/resource1');
+let comments = await resource.follow('user', {id: '1'});
 ```
 
 ## Why ?

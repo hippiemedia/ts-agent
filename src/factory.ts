@@ -1,5 +1,6 @@
 
 import Agent from './agent';
+import SirenJson from './adapter/siren-json';
 import HalJson from './adapter/hal-json';
 import HalForms from './adapter/hal-forms';
 import Json from './adapter/json';
@@ -11,6 +12,7 @@ export default function factory(decorator: Function = null) {
     let halJson = new HalJson();
     return new Agent(
         [
+            new SirenJson(),
             halJson,
             new HalForms(halJson),
             new Json(),
@@ -20,5 +22,3 @@ export default function factory(decorator: Function = null) {
         decorator ? decorator(client) : client
     );
 };
-
-window['agent'] = factory();

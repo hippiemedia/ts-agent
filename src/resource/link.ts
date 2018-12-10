@@ -19,7 +19,7 @@ export default class Link
 
     constructor(rel: string, title: string, description: string, agent, accept, href, resolved, templated) {
         this.rel = rel;
-        this.title = title;
+        this.title = title || rel;
         this.description = description;
         this.agent = agent;
         this.href = href;

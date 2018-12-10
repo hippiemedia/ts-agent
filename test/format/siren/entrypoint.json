@@ -1,0 +1,75 @@
+{
+  "links": [
+    {
+      "rel": [
+        "home"
+      ],
+      "href": "/"
+    },
+    {
+      "rel": [
+        "first"
+      ],
+      "href": "/fizzbuzz?number=1"
+    },
+    {
+      "rel": [
+        "last"
+      ],
+      "href": "/fizzbuzz?number=100"
+    }
+  ],
+  "actions": [
+    {
+      "name": "custom-fizzbuzz",
+      "title": "Custom FizzBuzz",
+      "method": "GET",
+      "href": "/fizzbuzz",
+      "type": "application/x-www-form-urlencoded",
+      "fields": [
+        {
+          "name": "add",
+          "type": "number",
+          "value": "1"
+        },
+        {
+          "name": "startsAt",
+          "type": "number",
+          "value": "1"
+        },
+        {
+          "name": "endsAt",
+          "type": "number",
+          "value": "100"
+        },
+        {
+          "name": "firstNumber",
+          "type": "number",
+          "value": "3"
+        },
+        {
+          "name": "secondNumber",
+          "type": "number",
+          "value": "5"
+        },
+        {
+          "name": "embed",
+          "type": "number"
+        }
+      ]
+    },
+    {
+      "name": "get-fizzbuzz-value",
+      "title": "Get FizzBuzz Value",
+      "method": "GET",
+      "href": "/fizzbuzz",
+      "type": "application/x-www-form-urlencoded",
+      "fields": [
+        {
+          "name": "number",
+          "type": "number"
+        }
+      ]
+    }
+  ]
+}
