@@ -11,7 +11,7 @@
     "watch": "tsc -w",
     "build": "webpack -p --progress --colors -w",
     "compile": "tsc",
-    "prepack": "tsc && webpack --mode production"
+    "prepack": "npm install && npm run compile && webpack --mode production"
   },
   "dependencies": {
     "h5.linkformat": "^0.0.0",
