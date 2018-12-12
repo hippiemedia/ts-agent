@@ -25,10 +25,9 @@ export default class Agent
     }
 
     build(response: Response) {
-        let contentType = response.getHeader('Content-Type') || '';
-        let adapter = this.getAdapter(contentType);
+        let adapter = this.getAdapter(response.contentType);
 
-        return adapter.build(this, response, this.accept(contentType));
+        return adapter.build(this, response, this.accept(response.contentType));
     }
 
     private getAdapter(type: string): Adapter {

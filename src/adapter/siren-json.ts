@@ -2,6 +2,7 @@
 import Adapter from '../adapter';
 import Resource from '../resource';
 import Link from '../resource/link';
+import Operation from '../resource/operation';
 import Response from '../client/response';
 
 export default class SirenJson implements Adapter
@@ -25,7 +26,28 @@ export default class SirenJson implements Adapter
 
         return new Resource(
             response,
-            body
+            body.properties,
+            body.links.map(link => new Link(
+                link.rel[0],
+                link.title || '',
+                link.description || '',
+                agent,
+                accept,
+                link.href,
+                null,
+                link.templated || false
+            )),
+            body.actions.map(operation => new Operation(
+                agent,
+                operation.rel,
+                operation.title || '',
+                operation.description || '',
+                operation.method,
+                operation.href,
+                operation.templated || false,
+                accept,
+                operation.fields
+            ))
         );
     }
 }

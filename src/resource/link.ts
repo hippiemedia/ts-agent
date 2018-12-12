@@ -22,22 +22,21 @@ export default class Link
         this.title = title || rel;
         this.description = description;
         this.agent = agent;
+        this.accept = accept;
         this.href = href;
         this.resolved = resolved;
-        this.templated = templated;
-        if (templated) {
-            this.uriTemplate = new UriTemplate(this.href);
-            this.fields = this.uriTemplate.varNames.map(name => ({
-                name: name,
-                type: 'text',
-                title: null,
-                description: null,
-                required: true,
-                example: null,
-                value: null,
-                multiple: false,
-            }));
-        }
+        this.uriTemplate = new UriTemplate(this.href);
+        this.fields = this.uriTemplate.varNames.map(name => ({
+            name: name,
+            type: 'text',
+            title: null,
+            description: null,
+            required: true,
+            example: null,
+            value: null,
+            multiple: false,
+        }));
+        this.templated = this.fields.length > 0;
     }
 
     follow(fields = {}, force = false): Promise<Resource>

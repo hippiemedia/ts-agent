@@ -12,7 +12,7 @@ export async function fetchApi(method, url, params, headers): Promise<Response> 
         return {
             url: url,
             status: response.status,
-            contentType: await response.headers.get('content-type'),
+            contentType: response.headers.get('content-type'),
             getHeader: (name) => {
                 return response.headers.get(name);
             },

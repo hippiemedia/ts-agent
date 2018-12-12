@@ -60,8 +60,8 @@ export default class HalJson implements Adapter
                         url: link.href,
                         status: 200,
                         body: entry,
-                        contentType: links[0].type || response.contentType,
-                        getHeader: () => links[0].type || this.accepts()
+                        contentType: links[0].type || this.accepts(),
+                        getHeader: () => {}
                     }));
                 }
             });
