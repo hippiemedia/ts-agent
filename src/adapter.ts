@@ -9,5 +9,5 @@ export default interface Adapter
 
     accepts(): string;
 
-    build(agent: Agent, response: Response, accept: string);
+    build(agent: Agent, response: Response, accept: string): Resource;
 }

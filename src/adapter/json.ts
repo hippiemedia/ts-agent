@@ -16,7 +16,7 @@ export default class Json implements Adapter
         return 'application/json';
     }
 
-    build(agent, response: Response, accept: string)
+    build(agent, response: Response, accept: string): Resource
     {
         let body = response.body;
         if (typeof response.body === 'string') {

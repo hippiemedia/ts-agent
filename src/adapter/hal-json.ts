@@ -17,7 +17,7 @@ export default class HalJson implements Adapter
         return 'application/hal+json';
     }
 
-    async build(agent, response: Response, accept: string)
+    build(agent, response: Response, accept: string): Resource
     {
         let body = response.body;
         if (typeof response.body === 'string') {

@@ -23,7 +23,7 @@ export default class HalForms implements Adapter
         return 'application/prs.hal-forms+json';
     }
 
-    build(agent, response: Response, accept: string)
+    build(agent, response: Response, accept: string): Resource
     {
         let body = response.body;
         if (typeof body === 'string') {

@@ -16,7 +16,7 @@ export default class Json implements Adapter
         return '*/*';
     }
 
-    build(agent, response: Response, accept: string)
+    build(agent, response: Response, accept: string): Resource
     {
         return new Resource(
             response,

@@ -20,23 +20,25 @@ export default class Agent
 
     async call(method, url, params, headers = {}): Promise<Resource> {
         let response = await this.client(method, url, params, headers);
+        let resource = this.build(response);
 
-        return this.build(response);
+        return resource;
     }
 
     build(response: Response) {
-        let adapter = this.getAdapter(response.contentType);
+        let contentType = response.contentType || '';
+        let adapter = this.getAdapter(contentType);
 
-        return adapter.build(this, response, this.accept(response.contentType));
+        return adapter.build(this, response, this.accept(contentType));
     }
 
-    private getAdapter(type: string): Adapter {
+    private getAdapter(contentType: string): Adapter {
         return this.adapters.find(adapter => {
-            return adapter.supports(type);
-        }) || (() => { throw Error(type); })();
+            return adapter.supports(contentType);
+        }) || (() => { throw Error(contentType); })();
     }
 
-    private accept(contentType): string {
+    private accept(contentType: string): string {
         return this.adapters.map(adapter =>  {
             return adapter.accepts() + (adapter.supports(contentType) ? ';q=1' : ';q=0.8');
         }).join(',');

@@ -33,22 +33,20 @@ export default class Operation
         this.description = description;
         this.method = method;
         this.href = href;
-        this.templated = templated;
         this.accept = accept;
         this.fields = [];
-        if (templated) {
-            this.uriTemplate = new UriTemplate(this.href);
-            this.fields = this.uriTemplate.varNames.map(name => ({
-                name: name,
-                type: 'text',
-                title: null,
-                description: null,
-                required: true,
-                example: null,
-                value: null,
-                multiple: false,
-            }));
-        }
+        this.uriTemplate = new UriTemplate(this.href);
+        this.fields = this.uriTemplate.varNames.map(name => ({
+            name: name,
+            type: 'text',
+            title: null,
+            description: null,
+            required: true,
+            example: null,
+            value: null,
+            multiple: false,
+        }));
+        this.templated = this.fields.length > 0;
         this.fields = this.fields.concat(fields.filter(newField => !this.fields.find(field => field.name == newField.name)));
     }
 

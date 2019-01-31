@@ -17,7 +17,7 @@ export default class Html implements Adapter
         return 'text/html';
     }
 
-    build(agent, response: Response, accept: string)
+    build(agent, response: Response, accept: string): Resource
     {
         let parser = new DOMParser();
         let doc = parser.parseFromString(response.body, 'text/html');

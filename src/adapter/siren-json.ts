@@ -17,7 +17,7 @@ export default class SirenJson implements Adapter
         return 'application/vnd.siren+json';
     }
 
-    build(agent, response: Response, accept: string)
+    build(agent, response: Response, accept: string): Resource
     {
         let body = response.body;
         if (typeof response.body === 'string') {
