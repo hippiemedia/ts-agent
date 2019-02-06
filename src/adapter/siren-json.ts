@@ -4,6 +4,7 @@ import Resource from '../resource';
 import Link from '../resource/link';
 import Operation from '../resource/operation';
 import Response from '../client/response';
+import * as LinkHeader from 'http-link-header';
 
 export default class SirenJson implements Adapter
 {
@@ -36,7 +37,16 @@ export default class SirenJson implements Adapter
                 link.href,
                 null,
                 link.templated || false
-            )),
+            )).concat(LinkHeader.parse(response.getHeader('link') || '').refs.map(link => new Link(
+                link.rel,
+                link.title || '',
+                link.description || '',
+                agent,
+                link.type || accept,
+                link.uri,
+                null,
+                link.templated || false
+            ))),
             body.actions.map(operation => new Operation(
                 agent,
                 operation.rel,

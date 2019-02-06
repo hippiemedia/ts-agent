@@ -3,6 +3,7 @@ import Adapter from '../adapter';
 import Resource from '../resource';
 import Link from '../resource/link';
 import Response from '../client/response';
+import * as LinkHeader from 'http-link-header';
 
 export default class HalJson implements Adapter
 {
@@ -28,7 +29,21 @@ export default class HalJson implements Adapter
         delete state._links;
         delete state._embedded;
 
-        let links = this.buildLinks(agent, response, body, accept);
+        let links = this.buildLinks(agent, response, body, accept)
+        .concat(LinkHeader.parse(response.getHeader('link') || '').refs.map(link => {
+            console.log(link)
+            return new Link(
+                link.rel,
+                link.title || '',
+                link.description || '',
+                agent,
+                link.type || accept,
+                link.uri,
+                null,
+                link.templated || false
+            );
+        }));
+
 
         return new Resource(
             response,
