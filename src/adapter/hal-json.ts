@@ -31,7 +31,6 @@ export default class HalJson implements Adapter
 
         let links = this.buildLinks(agent, response, body, accept)
         .concat(LinkHeader.parse(response.getHeader('link') || '').refs.map(link => {
-            console.log(link)
             return new Link(
                 link.rel,
                 link.title || '',
