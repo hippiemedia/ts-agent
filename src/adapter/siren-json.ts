@@ -36,7 +36,8 @@ export default class SirenJson implements Adapter
                 accept,
                 link.href,
                 null,
-                link.templated || false
+                link.templated || false,
+                false
             )).concat(LinkHeader.parse(response.getHeader('link') || '').refs.map(link => new Link(
                 link.rel,
                 link.title || '',
@@ -45,7 +46,8 @@ export default class SirenJson implements Adapter
                 link.type || accept,
                 link.uri,
                 null,
-                link.templated || false
+                link.templated || false,
+                false
             ))),
             body.actions.map(operation => new Operation(
                 agent,

@@ -34,6 +34,7 @@ export default class Html implements Adapter
                     accept,
                     link.href,
                     null,
+                    false,
                     false
                 );
             }).concat(Array.from(doc.documentElement.querySelectorAll('form[method="get"]')).map((form: HTMLFormElement) => {
@@ -45,7 +46,8 @@ export default class Html implements Adapter
                     accept,
                     decodeURIComponent(form.action),
                     null,
-                    true
+                    true,
+                    false
                 );
             })),
             Array.from(doc.documentElement.querySelectorAll('form[method="post"]')).map((form: HTMLFormElement) => {

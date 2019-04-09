@@ -14,10 +14,11 @@ export default class Link
     public readonly description: string;
     public readonly href: string;
     public readonly templated: Boolean;
+    public readonly deprecated: Boolean;
     public fields: Field[] = [];
     private uriTemplate;
 
-    constructor(rel: string, title: string, description: string, agent, accept, href, resolved, templated) {
+    constructor(rel: string, title: string, description: string, agent, accept, href, resolved, templated, deprecated) {
         this.rel = rel;
         this.title = title || rel;
         this.description = description;
@@ -25,6 +26,7 @@ export default class Link
         this.accept = accept;
         this.href = href;
         this.resolved = resolved;
+        this.deprecated = deprecated;
         this.uriTemplate = new UriTemplate(this.href);
         this.fields = this.uriTemplate.varNames.map(name => ({
             name: name,

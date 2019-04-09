@@ -9,7 +9,7 @@ const agent = new Agent([adapter], (method, url, params, headers) => {
     return Promise.resolve({
         url: url,
         status: 200,
-        getHeader: () => 'application/json',
+        getHeader: (name) => ({'content-type': 'application/json'}[name]) || null,
         contentType: 'application/json',
         body: '{}'
     });
@@ -21,7 +21,7 @@ test('populates body', async () => {
         url: 'http://example.com',
         status: 200,
         contentType: 'application/json',
-        getHeader: () => 'application/json',
+        getHeader: (name) => ({'content-type': 'application/json'}[name]) || null,
         body: body,
     }, 'application/json');
 

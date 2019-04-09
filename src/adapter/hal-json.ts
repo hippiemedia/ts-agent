@@ -31,7 +31,6 @@ export default class HalJson implements Adapter
 
         let links = this.buildLinks(agent, response, body, accept)
         .concat(LinkHeader.parse(response.getHeader('link') || '').refs.map(link => {
-            console.log(link)
             return new Link(
                 link.rel,
                 link.title || '',
@@ -40,7 +39,8 @@ export default class HalJson implements Adapter
                 link.type || accept,
                 link.uri,
                 null,
-                link.templated || false
+                link.templated || false,
+                link.deprecation || false
             );
         }));
 
@@ -89,7 +89,8 @@ export default class HalJson implements Adapter
                 accept,
                 link.href,
                 resolved.get(link.href),
-                link.templated || false
+                link.templated || false,
+                link.deprecation || false
             ));
         }).reduce((acc, val) => acc.concat(val), []);
     }
