@@ -50,9 +50,9 @@ export default class Operation
         this.fields = this.fields.concat(fields.filter(newField => !this.fields.find(field => field.name == newField.name)));
     }
 
-    submit(params): Promise<Resource> {
+    submit(params, headers = {}): Promise<Resource> {
         let href = this.templated ? this.uriTemplate.fill(params) : this.href;
 
-        return this.agent.call(this.method, href, params, {Accept: this.accept});
+        return this.agent.call(this.method, href, params, {Accept: this.accept, ...headers});
     }
 }

@@ -1,13 +1,13 @@
 
 import Response from './client/response';
 
-export interface Client { (method, url, params, headers): Promise<Response> };
+export interface Client { (method, url, body: string, headers): Promise<Response> };
 
-export async function fetchApi(method, url, params, headers): Promise<Response> {
+export async function fetchApi(method, url, body, headers): Promise<Response> {
     return fetch(url, {
         method: method,
         headers: {'Content-Type': 'application/x-www-form-urlencoded', ...headers},
-        body: (-1 !== ['post', 'put', 'patch'].indexOf(method.toLowerCase())) ? new URLSearchParams(params).toString() : null
+        body: (-1 !== ['post', 'put', 'patch'].indexOf(method.toLowerCase())) ? body : null
     }).then(async function(response) {
         return {
             url: url,
@@ -21,7 +21,7 @@ export async function fetchApi(method, url, params, headers): Promise<Response> 
     });
 }
 
-export function xhr(method, url, params, headers): Promise<Response> {
+export function xhr(method, url, body, headers): Promise<Response> {
     return new Promise((resolve, reject) => {
         var xhr = new XMLHttpRequest();
         xhr.open(method, url, true);
@@ -52,10 +52,6 @@ export function xhr(method, url, params, headers): Promise<Response> {
         xhr.onerror = () => {
           reject(this);
         };
-        params = Object.keys(params || {}).map(key => {
-          return encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
-        }).join('&');
-        //params = Object.keys(params).length !== 0 ? new URLSearchParams(params) : null
-        xhr.send(params);
+        xhr.send(body);
     });
 };
