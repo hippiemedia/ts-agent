@@ -12,9 +12,9 @@ export default class Html implements Adapter
         return contentType.includes('text/html');
     }
 
-    accepts()
+    accepts(contentType)
     {
-        return 'text/html';
+        return 'text/html;' + (this.supports(contentType) ? 'q=1' : 'q=0.8');
     }
 
     build(agent, response: Response, accept: string): Resource

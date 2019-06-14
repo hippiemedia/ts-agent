@@ -13,9 +13,9 @@ export default class HalJson implements Adapter
             || contentType.includes('application/vnd.error+json');
     }
 
-    accepts()
+    accepts(contentType)
     {
-        return 'application/hal+json';
+        return 'application/hal+json;' + (this.supports(contentType) ? 'q=1' : 'q=0.8');
     }
 
     build(agent, response: Response, accept: string): Resource
@@ -75,7 +75,7 @@ export default class HalJson implements Adapter
                         url: link.href,
                         status: 200,
                         body: entry,
-                        contentType: links[0].type || this.accepts(),
+                        contentType: links[0].type || this.accepts(response.getHeader('Content-Type')),
                         getHeader: () => {}
                     }));
                 }

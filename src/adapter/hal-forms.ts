@@ -18,9 +18,9 @@ export default class HalForms implements Adapter
         return contentType.includes('application/prs.hal-forms+json');
     }
 
-    accepts()
+    accepts(contentType)
     {
-        return 'application/prs.hal-forms+json';
+        return 'application/prs.hal-forms+json;' + (this.supports(contentType) ? 'q=1' : 'q=0.8');
     }
 
     build(agent, response: Response, accept: string): Resource

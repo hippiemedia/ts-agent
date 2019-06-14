@@ -7,7 +7,7 @@ export default interface Adapter
 {
     supports(contentType: string): boolean;
 
-    accepts(): string;
+    accepts(contentType: string): string;
 
     build(agent: Agent, response: Response, accept: string): Resource;
 }

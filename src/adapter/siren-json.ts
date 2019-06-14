@@ -13,9 +13,9 @@ export default class SirenJson implements Adapter
         return contentType.includes('application/vnd.siren+json');
     }
 
-    accepts()
+    accepts(contentType)
     {
-        return 'application/vnd.siren+json';
+        return 'application/vnd.siren+json;' + (this.supports(contentType) ? 'q=1' : 'q=0.8');
     }
 
     build(agent, response: Response, accept: string): Resource

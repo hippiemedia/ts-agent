@@ -10,7 +10,7 @@ const agent = new Agent([adapter, new HalForms(adapter)], (method, url, params, 
     return Promise.resolve({
         url: url,
         status: 200,
-        getHeader: (name) => ({'content-type': 'application/hal+json'}[name]) || null,
+        getHeader: (name) => ({'content-type': 'application/hal+json'}[name.toLowerCase()]) || null,
         contentType: 'application/hal+json',
         body: '{}'
     });
@@ -21,7 +21,7 @@ test('populates links', async () => {
         url: 'http://example.com',
         status: 200,
         contentType: 'application/hal+json',
-        getHeader: (name) => ({'content-type': 'application/hal+json'}[name]) || null,
+        getHeader: (name) => ({'content-type': 'application/hal+json'}[name.toLowerCase()]) || null,
         body: fs.readFileSync('test/format/hal/example.json').toString(),
     }, 'application/hal+json');
 
@@ -36,7 +36,7 @@ test('uses embedded', async () => {
         url: 'http://example.com',
         status: 200,
         contentType: 'application/hal+json',
-        getHeader: (name) => ({'content-type': 'application/hal+json'}[name]) || null,
+        getHeader: (name) => ({'content-type': 'application/hal+json'}[name.toLowerCase()]) || null,
         body: fs.readFileSync('test/format/hal/collection.json').toString(),
     }, 'application/hal+json');
 
@@ -48,7 +48,7 @@ test('populates operations', async () => {
         url: 'http://example.com',
         status: 200,
         contentType: 'application/hal+json',
-        getHeader: (name) => ({'content-type': 'application/hal+json'}[name]) || null,
+        getHeader: (name) => ({'content-type': 'application/hal+json'}[name.toLowerCase()]) || null,
         body: fs.readFileSync('test/format/hal/collection.json').toString(),
     }, 'application/hal+json');
 
