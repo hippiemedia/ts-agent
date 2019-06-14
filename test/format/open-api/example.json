@@ -1,0 +1,123 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "oas3 api",
+    "version": "0.0.1"
+  },
+  "servers": [
+    {
+      "url": "https://localhost"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "paths": {
+    "/api/": {
+      "get": {
+        "parameters": [],
+        "responses": {
+          "default": {
+            "description": "ok"
+          }
+        }
+      }
+    },
+    "/api/subscriptions/updated-since/{since}": {
+      "get": {
+        "parameters": [
+          {
+            "name": "since",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "ok"
+          }
+        }
+      }
+    },
+    "/api/subscriptions/{subscription_id}": {
+      "delete": {
+        "parameters": [
+          {
+            "name": "subscription_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "ok"
+          }
+        }
+      }
+    },
+    "/api/subscriptions": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "0[upc]": {
+                    "type": "string"
+                  },
+                  "0[asin]": {
+                    "type": "string"
+                  },
+                  "0[mpn_brand]": {
+                    "type": "string"
+                  },
+                  "hub.callback": {
+                    "type": "string"
+                  },
+                  "hub.secret": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "https://localhost/docs/3-api-spec/request/subscribe.json"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "ok"
+          }
+        }
+      }
+    }
+  }
+}
