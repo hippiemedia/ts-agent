@@ -11,9 +11,9 @@ export default class Json implements Adapter
         return contentType.includes('application/json');
     }
 
-    accepts()
+    accepts(contentType)
     {
-        return 'application/json';
+        return 'application/json;' + (this.supports(contentType) ? 'q=1' : 'q=0.8');
     }
 
     build(agent, response: Response, accept: string): Resource

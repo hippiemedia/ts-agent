@@ -38,9 +38,9 @@ export default class Agent
         }) || (() => { throw Error(contentType); })();
     }
 
-    private accept(contentType: string): string {
+    accept(contentType: string): string {
         return this.adapters.map(adapter =>  {
-            return adapter.accepts() + (adapter.supports(contentType) ? ';q=1' : ';q=0.8');
+            return adapter.accepts(contentType);
         }).join(',');
     }
 }

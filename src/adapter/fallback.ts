@@ -4,16 +4,16 @@ import Resource from '../resource';
 import Link from '../resource/link';
 import Response from '../client/response';
 
-export default class Json implements Adapter
+export default class Fallback implements Adapter
 {
     supports(contentType)
     {
         return true;
     }
 
-    accepts()
+    accepts(contentType)
     {
-        return '*/*';
+        return '*/*;q=0.8';
     }
 
     build(agent, response: Response, accept: string): Resource
