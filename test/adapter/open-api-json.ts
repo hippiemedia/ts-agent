@@ -7,7 +7,7 @@ const response = {
     status: 200,
     contentType: 'application/oas3+json',
     getHeader: (name) => ({'content-type': 'application/oas3+json'}[name.toLowerCase()]) || null,
-    body: fs.readFileSync('test/format/open-api/example2.json').toString(),
+    body: fs.readFileSync('test/format/open-api/example.json').toString(),
 };
 const adapter = new OpenApiJson();
 const agent = new Agent([adapter], (method, url, params, headers) => {

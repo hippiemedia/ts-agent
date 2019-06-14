@@ -118,12 +118,12 @@ export default class OpenApiJson implements Adapter
 
                return {
                    name: propertyName,
-                   description: property.description || '',
-                   type: property.type || 'string',
-                   required: property.required || false,
-                   value: property.value || '',
-                   multiple: property.multiple || '',
-                   example: property.example || '',
+                   description: property['description'] || '',
+                   type: property['type'] || 'string',
+                   required: property['required'] || false,
+                   value: property['value'] || '',
+                   multiple: property['multiple'] || '',
+                   example: property['example'] || '',
                };
            });
         }
