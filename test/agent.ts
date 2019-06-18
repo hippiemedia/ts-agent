@@ -14,7 +14,6 @@ function createAgent(adapters=[]) {
             body: ''
         });
     });
-
 }
 
 test('it accepts format with no adapter', () => {

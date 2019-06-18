@@ -6,9 +6,10 @@ import HalForms from './adapter/hal-forms';
 import Json from './adapter/json';
 import Html from './adapter/html';
 import Fallback from './adapter/fallback';
-import {fetchApi as client} from './client';
+import {fetchApi, defaultBodySerializers} from './client';
 
 export default function factory(decorator: Function = null) {
+    let client = fetchApi(defaultBodySerializers);
     let halJson = new HalJson();
     return new Agent(
         [
