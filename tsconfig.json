@@ -2,7 +2,7 @@
     "compilerOptions": {
         "outDir": "./dist",
         "target": "es5",
-        "lib": ["es5", "es6", "es2015.promise", "dom"]
+        "lib": ["es5", "es6", "es2015.promise", "dom" , "es2017.object", "es2016.array.include"]
     },
     "include": [
         "./src/**/*",
