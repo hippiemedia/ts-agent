@@ -24,9 +24,10 @@ export default class Operation
     public readonly method: string;
     public readonly href: string;
     public readonly templated: Boolean;
+    public readonly extra: Object;
     public fields: Field[];
 
-    constructor(agent: Agent, rel: string, title: string, description: string, method: string, href: string, templated, accept: string, fields: Field[]) {
+    constructor(agent: Agent, rel: string, title: string, description: string, method: string, href: string, templated, accept: string, fields: Field[], extra = {}) {
         this.agent = agent;
         this.rel = rel;
         this.title = title;
@@ -35,6 +36,7 @@ export default class Operation
         this.href = href;
         this.accept = accept;
         this.fields = [];
+        this.extra = extra;
         this.uriTemplate = new UriTemplate(this.href);
         this.fields = this.uriTemplate.varNames.map(name => ({
             name: name,
