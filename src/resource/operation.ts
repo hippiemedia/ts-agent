@@ -1,6 +1,7 @@
 
 import Agent from '../agent';
 import Resource from '../resource';
+import Link from './link';
 import * as UriTemplate from 'uri-templates';
 
 export type Field = {
@@ -24,7 +25,7 @@ export default class Operation
     public readonly method: string;
     public readonly href: string;
     public readonly templated: Boolean;
-    public readonly extra: Object;
+    public readonly extra: any;
     public fields: Field[];
 
     constructor(agent: Agent, rel: string, title: string, description: string, method: string, href: string, templated, accept: string, fields: Field[], extra = {}) {
@@ -56,5 +57,11 @@ export default class Operation
         let href = this.templated ? this.uriTemplate.fill(params) : this.href;
 
         return this.agent.call(this.method, href, params, {Accept: this.accept, ...headers});
+    }
+
+    profile(): Link | null {
+        if (this.extra.profile) {
+            return new Link('profile', 'response profile', '', this.agent, this.accept, this.extra.profile, false, false, false);
+        }
     }
 }

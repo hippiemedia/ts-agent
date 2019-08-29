@@ -41,7 +41,7 @@ export default class HalJson implements Adapter
                 null,
                 link.templated || false,
                 link.deprecation || false,
-                {tags: link.tags || []}
+                link || {}
             );
         }));
 
@@ -92,7 +92,7 @@ export default class HalJson implements Adapter
                 resolved.get(link.href),
                 link.templated || false,
                 link.deprecation || false,
-                {tags: link.tags || []}
+                link
             ));
         }).reduce((acc, val) => acc.concat(val), []);
     }

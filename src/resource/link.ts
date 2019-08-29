@@ -15,7 +15,7 @@ export default class Link
     public readonly href: string;
     public readonly templated: Boolean;
     public readonly deprecated: Boolean;
-    public readonly extra: Object;
+    public readonly extra: any;
     public fields: Field[] = [];
     private uriTemplate;
 
@@ -61,5 +61,11 @@ export default class Link
 
     isResolved() {
         return !!this.resolved;
+    }
+
+    profile(): Link | null {
+        if (this.extra.profile) {
+            return new Link('profile', 'response profile', '', this.agent, this.accept, this.extra.profile, false, false, false);
+        }
     }
 }

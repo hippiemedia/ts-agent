@@ -46,7 +46,7 @@ export default class HalForms implements Adapter
                 template.default.templated || false,
                 accept,
                 template.default.properties,
-                {tags: template.default.tags || []}
+                template.default
             );
         });
 
